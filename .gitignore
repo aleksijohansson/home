@@ -1,1 +1,2 @@
-# Ignore needed files here if needed.
+# Vagrant related files and folders.
+vagrant/*/.vagrant
