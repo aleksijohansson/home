@@ -17,6 +17,10 @@ then
     exit 1
   fi
 
+  # Get Powerline theme for oh-my-zsh
+  printf "Downloading Powerline theme for oh-my-zsh...\n"
+  cd ~/ && git clone git@github.com:jeremyFreeAgent/oh-my-zsh-powerline-theme.git && cd oh-my-zsh-powerline-theme && ./install_in_omz.sh
+
   # Get the Polarized theme for iTerm on OS X.
   if [ "$(uname)" = "Darwin" ]
   then

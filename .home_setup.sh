@@ -6,11 +6,8 @@
 # Only continue if previous steps
 if [ "$?" = "0" ]
 then
-  printf "Moving the project...\n"
-  # Copy contents to home folder.
-  # cp -a . ~/
-  # Remove the temporary repository.
-  # cd ..
-  # rm -rf home
+  printf "Installing the dotfiles...\n"
+  # Symlink dotfiles.
+  # ln -f .zshrc ~/.zshrc
   printf "Done.\n"
 fi
