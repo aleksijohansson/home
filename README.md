@@ -2,8 +2,6 @@
 Configuration of dotfiles etc.
 
 ## Expectations
-- This project expects that you have bash and zsh preinstalled on you machine.
-- This project requires either curl or wget.
 - This project expects a "Downloads" folder in your home folder.
 
 ## Project setup
