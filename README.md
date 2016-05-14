@@ -2,7 +2,7 @@
 Configuration of dotfiles etc.
 
 ## Expectations
-- This project expects that you have bash installed on you machine.
+- This project expects that you have bash and zsh preinstalled on you machine.
 - This project requires either curl or wget.
 - This project expects a "Downloads" folder in your home folder.
 
@@ -15,6 +15,5 @@ This sets up the project in the current users home folder.
 
 ## ZSH setup
 This is run as part of `./.home_setup.sh`
-- Makes sure zsh is installed.
 - Installs oh-my-zsh which also sets up zsh as default shell for the current user.
-- Downloads Solarized theme for iTerm to ~/Downloads folder.
+- Downloads Solarized theme for iTerm to ~/Downloads folder on OS X.
