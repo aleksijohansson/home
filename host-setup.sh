@@ -1,13 +1,13 @@
 #!/bin/bash
 
 # Run additional install scripts first.
-./zsh_setup.sh
+./zsh-setup.sh
 
-# Only continue if previous steps
+# Only continue if previous steps succeeded.
 if [ "$?" = "0" ]
 then
   printf "Installing the dotfiles...\n"
   # Symlink dotfiles.
-  # ln -f zshrc ~/.zshrc
+  ln -s $(pwd)/zshrc ~/.zshrc
   printf "Done.\n"
 fi
