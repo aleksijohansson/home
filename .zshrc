@@ -5,21 +5,12 @@ export ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-# ZSH_THEME="powerlevel9k/powerlevel9k"
 ZSH_THEME="oh-my-zsh-powerline-theme/powerline"
 
 POWERLINE_DISABLE_RPROMPT="true"
-# POWERLINE_HIDE_USER_NAME="true"
-# POWERLINE_HIDE_HOST_NAME="true"
-# POWERLINE_SHORT_HOST_NAME="true"
 POWERLINE_NO_BLANK_LINE="true"
 POWERLINE_PATH="short"
 POWERLINE_DETECT_SSH="true"
-
-# POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(time context dir vcs)
-# POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
-# POWERLEVEL9K_TIME_FORMAT="%D{%H:%M}"
-
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
