@@ -1,15 +1,1 @@
-# Ignore everything by default.
-*
-
-# Add only specific files.
-!.gitignore
-!.README.md
-
-# ZSH shell config.
-!.zshrc
-
-# Setup script to setup this repository to be used in a new machine.
-!.home_setup.sh
-
-# Additional setup scripts.
-!.zsh_setup.sh
+# Ignore needed files here if needed.

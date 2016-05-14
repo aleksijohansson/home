@@ -9,7 +9,7 @@ Configuration of dotfiles etc.
 ## Project setup
 - Run the .home_setup.sh to setup the project:
 ~~~
-./.home_setup.sh
+./host-setup.sh
 ~~~
 This sets up the project in the current users home folder.
 
