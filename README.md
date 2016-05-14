@@ -14,3 +14,7 @@ Configuration of dotfiles etc.
 This sets up the project in the current users home folder.
 
 ## ZSH setup
+This is run as part of `./.home_setup.sh`
+- Makes sure zsh is installed.
+- Installs oh-my-zsh which also sets up zsh as default shell for the current user.
+- Downloads Solarized theme for iTerm to ~/Downloads folder.

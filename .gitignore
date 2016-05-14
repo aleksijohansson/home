@@ -3,6 +3,7 @@
 
 # Add only specific files.
 !.gitignore
+!.README.md
 
 # ZSH shell config.
 !.zshrc
