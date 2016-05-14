@@ -8,6 +8,6 @@ if [ "$?" = "0" ]
 then
   printf "Installing the dotfiles...\n"
   # Symlink dotfiles.
-  ln -s $(pwd)/zshrc ~/.zshrc
+  ln -s $(pwd)/dotfiles/zshrc ~/.zshrc
   printf "Done.\n"
 fi
