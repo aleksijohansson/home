@@ -3,4 +3,9 @@
 
 # Add only specific files.
 !.gitignore
+
+# ZSH shell config.
 !.zshrc
+
+# Setup script to setup this repository to be used in a new machine.
+!.setup.sh
