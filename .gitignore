@@ -8,4 +8,7 @@
 !.zshrc
 
 # Setup script to setup this repository to be used in a new machine.
-!.setup.sh
+!.home_setup.sh
+
+# Additional setup scripts.
+!.zsh_setup.sh
