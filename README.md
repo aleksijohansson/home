@@ -1,17 +1,16 @@
-# home
+# host-setup
 Configuration of dotfiles etc.
 
-## Expectations
-- This project expects a "Downloads" folder in your home folder.
-
 ## Project setup
-- Run the .home_setup.sh to setup the project:
+Run the home-setup.sh to setup a host:
 ~~~
 ./host-setup.sh
 ~~~
-This sets up the project in the current users home folder.
 
-## ZSH setup
-This is run as part of `./.home_setup.sh`
-- Installs oh-my-zsh which also sets up zsh as default shell for the current user.
-- Downloads Solarized theme for iTerm to ~/Downloads folder on OS X.
+## Development and testing
+Requirements:
+- vagrant
+- virtualbox
+- virtualbox extension pack
+
+Note! In order to test OS X provisioning with vagrant, your development machine needs to be OS X.
