@@ -104,7 +104,11 @@ fi
 # - On OS X, keep what we are doing now.
 # TODO: Maybe change back to powerlevel9k and try it in compability mode if it would work without fonts.
 # - See https://github.com/bhilburn/powerlevel9k/wiki/Install-Instructions#step-2-install-powerline-fonts
-# TODO: Consider actually installing Powerline, see http://askubuntu.com/questions/283908/how-can-i-install-and-use-powerline-plugin
+# TODO: Consider actually installing Powerline.
+# See http://askubuntu.com/questions/283908/how-can-i-install-and-use-powerline-plugin
+# and https://fedoramagazine.org/add-power-terminal-powerline/
+# and also http://powerline.readthedocs.io/en/master/installation.html
+# and one more for OS X https://blog.codefront.net/2013/10/27/installing-powerline-on-os-x-homebrew/
 
 # Abort if we don't have zsh installed.
 if hash zsh 2>/dev/null
