@@ -1,2 +1,5 @@
 # Vagrant related files and folders.
 vagrant/*/.vagrant
+
+# IDE related.
+.idea
