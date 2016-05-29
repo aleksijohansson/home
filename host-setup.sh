@@ -144,47 +144,52 @@ fi
 
 ## VAULT
 
-VAULTVER="0.5.2"
-VAULTURL="https://releases.hashicorp.com/vault/$VAULTVER/vault_$VAULTVER"
-
-# Get correct vault binary for the OS and architecture of the host.
-if [ $OS = "Linux" ]
+if ! hash vault 2>/dev/null
 then
 
-  # We need to use sudo with Linux.
-  SUDO="sudo"
+  VAULTVER="0.5.2"
+  VAULTURL="https://releases.hashicorp.com/vault/$VAULTVER/vault_$VAULTVER"
 
-  # Modern hosts here only.
-  if [ $ARC = "x86_64" ]
+  # Get correct vault binary for the OS and architecture of the host.
+  if [ $OS = "Linux" ]
   then
-    VAULTARC="_linux_amd64"
-  # There's only one binary for ARM, let's hope it works.
-  elif [[ $ARC == *"arm"* ]]
+
+    # We need to use sudo with Linux.
+    SUDO="sudo"
+
+    # Modern hosts here only.
+    if [ $ARC = "x86_64" ]
+    then
+      VAULTARC="_linux_amd64"
+    # There's only one binary for ARM, let's hope it works.
+    elif [[ $ARC == *"arm"* ]]
+    then
+      VAULTARC="_linux_arm"
+    else
+      printf "Your Linux architecture is not supported. Aborting...\n"
+      exit 1
+    fi
+
+  elif [ $OS = "Darwin" ]
   then
-    VAULTARC="_linux_arm"
+    # On OS X with Homebrew installed we don't need sudo.
+    SUDO=""
+    # Let's assume only moders OS X is used as host.
+    VAULTARC="_darwin_amd64"
   else
-    printf "Your Linux architecture is not supported. Aborting...\n"
+    printf "Your OS is not supported. Aborting...\n"
     exit 1
   fi
 
-elif [ $OS = "Darwin" ]
-then
-  # On OS X with Homebrew installed we don't need sudo.
-  SUDO=""
-  # Let's assume only moders OS X is used as host.
-  VAULTARC="_darwin_amd64"
-else
-  printf "Your OS is not supported. Aborting...\n"
-  exit 1
-fi
+  printf "Downloading Vault...\n"
+  wget "$VAULTURL$VAULTARC.zip"
+  printf "Unzipping Vault...\n"
+  unzip "vault_$VAULTVER$VAULTARC.zip"
+  rm "vault_$VAULTVER$VAULTARC.zip"
+  printf "Installing Vault...\n"
+  $SUDO mv vault /usr/local/bin/
 
-printf "Downloading Vault...\n"
-wget "$VAULTURL$VAULTARC.zip"
-printf "Unzipping Vault...\n"
-unzip "vault_$VAULTVER$VAULTARC.zip"
-rm "vault_$VAULTVER$VAULTARC.zip"
-printf "Installing Vault...\n"
-$SUDO mv vault /usr/local/bin/
+fi
 
 ## Go
 # TODO: Add installation of Go if it can be installed on armv7l? https://golang.org/dl/
