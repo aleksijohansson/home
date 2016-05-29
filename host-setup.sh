@@ -230,7 +230,7 @@ do
     fi
     # Symlink the dotfile into place.
     printf "Installing dot file ($DOTFILE)...\n"
-    ln -vs $FILE $DOTFILE
+    ln -vsf $FILE $DOTFILE
 
   fi
 
