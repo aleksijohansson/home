@@ -10,6 +10,9 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 # Set the installation folder for automated installations like vagrant testing and cloud-config.
 SOURCE="~/Source"
 
+# TODO: Maybe change the shell of all users on the system for a consistent workflow?
+# TODO: Maybe setup the global zshrc at /etc/zsh/zshrc? See more info https://wiki.archlinux.org/index.php/zsh and https://github.com/robbyrussell/oh-my-zsh#advanced-installation
+
 ## HOMEBREW
 
 # We will assume that if this is run on OS X, it's interactive.
@@ -183,6 +186,9 @@ rm "vault_$VAULTVER$VAULTARC.zip"
 printf "Installing Vault...\n"
 $SUDO mv vault /usr/local/bin/
 
+## Go
+# TODO: Add installation of Go if it can be installed on armv7l? https://golang.org/dl/
+
 ## DOTFILES
 
 # Install dotfiles.
@@ -230,7 +236,7 @@ do
 
 done
 
-# SSH config
+## SSH config
 # TODO: Change this to work more generally in the above for loop.
 printf "Installing SSH config...\n"
 ln -vsf "$DIR/dotfiles/ssh/config" ~/.ssh/config

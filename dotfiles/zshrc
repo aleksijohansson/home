@@ -1,16 +1,12 @@
 # Path to your oh-my-zsh installation.
+# TODO: Move this to the custom location under host-setup source. Maybe as a git submodule?
 export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="powerline"
-
-POWERLINE_DISABLE_RPROMPT="true"
-POWERLINE_NO_BLANK_LINE="true"
-POWERLINE_PATH="short"
-POWERLINE_DETECT_SSH="true"
+ZSH_THEME="candy"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -58,10 +54,18 @@ plugins=(git vagrant docker docker-compose)
 
 # User configuration
 
-export PATH="$HOME/.rbenv/shims:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:$HOME/Go/bin"
-# export MANPATH="/usr/local/man:$MANPATH"
-
 source $ZSH/oh-my-zsh.sh
+
+# rbenv
+export PATH="$PATH:$HOME/.rbenv/shims"
+
+# Go
+# TODO: Maybe move $GOPATH under "$HOME/Source/go"?
+export GOPATH="$HOME/Go"
+export PATH="$PATH:/usr/local/go/bin"
+export PATH="$PATH:$GOPATH/bin"
+
+# TODO: Maybe change this so that the default username can be given as argument to the host-setup.sh that will put it here?
 
 export DEFAULT_USER="$USER"
 
