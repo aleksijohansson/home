@@ -1,8 +1,14 @@
 #!/bin/bash
 
-# Get OS to do OS specific actions.
+# Get OS and architecture to do OS specific actions.
 OS="$(uname)"
 ARC="$(uname -m)"
+
+# Get the location of our script.
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# Set the installation folder for automated installations like vagrant testing and cloud-config.
+SOURCE="~/Source"
 
 ## HOMEBREW
 
@@ -90,25 +96,13 @@ then
   then
     sudo apt-get --assume-yes install $WGET $GIT $ZSH $UNZIP
   else
-    printf "None of predefined package managers found. Aborting..."
+    printf "None of predefined package managers found. Aborting...\n"
     exit 1
   fi
 
 fi
 
 ## SHELL
-
-# TODO: Change this so that any font madness is done only if needed:
-# - Arch, install with from AUR powerline-fonts-git (or maybe not)
-# - On Linux, install with instructions here https://powerline.readthedocs.io/en/latest/installation/linux.html#fonts-installation
-# - On OS X, keep what we are doing now.
-# TODO: Maybe change back to powerlevel9k and try it in compability mode if it would work without fonts.
-# - See https://github.com/bhilburn/powerlevel9k/wiki/Install-Instructions#step-2-install-powerline-fonts
-# TODO: Consider actually installing Powerline.
-# See http://askubuntu.com/questions/283908/how-can-i-install-and-use-powerline-plugin
-# and https://fedoramagazine.org/add-power-terminal-powerline/
-# and also http://powerline.readthedocs.io/en/master/installation.html
-# and one more for OS X https://blog.codefront.net/2013/10/27/installing-powerline-on-os-x-homebrew/
 
 # Abort if we don't have zsh installed.
 if hash zsh 2>/dev/null
@@ -118,41 +112,21 @@ then
   sudo chsh -s /bin/zsh $USER
 
   # Install oh-my-zsh.
+  # TODO: Change this so that it doesn't start zsh and pause there https://github.com/robbyrussell/oh-my-zsh#manual-installation
   printf "Installing oh-my-zsh...\n"
   sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
 
-  # Get the Droid Sans Mono for Powerline font while we are at it.
-  printf "Downloading Droid Sans Mono for Powerline font...\n"
-  wget -P ~/ https://github.com/powerline/fonts/raw/master/DroidSansMono/Droid%20Sans%20Mono%20for%20Powerline.otf
-
-  # Prepare oh-my-zsh for custom themes.
-  mkdir -p ~/.oh-my-zsh/custom/themes
-  # Get Powerline theme for oh-my-zsh.
-  printf "Downloading Powerline theme for oh-my-zsh...\n"
-  mkdir -p ~/Projects
-  git clone https://github.com/jeremyFreeAgent/oh-my-zsh-powerline-theme.git ~/Projects/oh-my-zsh-powerline-theme
-  # Install Powerline theme for oh-my-zsh.
-  printf "Installing Powerline theme for oh-my-zsh...\n"
-  ln -s ~/Projects/oh-my-zsh-powerline-theme/powerline.zsh-theme ~/.oh-my-zsh/custom/themes/powerline.zsh-theme
-
-  # Do OS specific finalisations.
+  # Do OS specific GUI finalisations.
+  # TODO: Do these only if GUI is available.
   if [ $OS = "Linux" ]
   then
 
-    # Prepare the fonts folder.
-    sudo mkdir -p /usr/share/fonts/opentype
-    # Move the fonts into place.
-    printf "Moving fonts into place...\n"
-    sudo mv ~/*.otf /usr/share/fonts/opentype/
-    # Update font cache.
-    sudo fc-cache -f -v
+    # TODO: Implement GNOME Terminal color scheme installation here.
+    printf "Installing GNOME Terminal color scheme...\n"
 
   elif [ $OS = "Darwin" ]
   then
 
-    # Move the fonts into place.
-    printf "Moving fonts into place...\n"
-    mv ~/*.otf ~/Library/Fonts/
     printf "Downloading Solarized Dark theme for iTerm...\n"
     # We can expect OS X to have curl available.
     wget -P ~/Downloads/ https://github.com/altercation/ethanschoonover.com/raw/master/projects/solarized/iterm2-colors-solarized/Solarized%20Dark.itermcolors
@@ -161,7 +135,7 @@ then
   fi
 
 else
-  printf "zsh required, but not installed. Aborting... \n"
+  printf "zsh required, but not installed. Aborting...\n"
   exit 1
 fi
 
@@ -214,16 +188,18 @@ $SUDO mv vault /usr/local/bin/
 # Install dotfiles.
 printf "Installing the dotfiles...\n"
 
-# Get dotfiles if we don't have them. This is the case when provisioning with cloud-confg and when testing with vagrant.
-if [ ! -d dotfiles ]
+# Get dotfiles if we don't have them. This is the case when provisioning with cloud-config and when testing with vagrant.
+if [ ! -d "$DIR/dotfiles" ]
 then
-  git clone https://github.com/aleksijohansson/host-setup.git ~/Projects/host-setup
+  printf "Getting the source...\n"
+  DIR="$SOURCE/host-setup"
+  git clone https://github.com/aleksijohansson/host-setup.git "$DIR"
   # Change the working directory to the project folder.
-  cd ~/Projects/host-setup
+  cd "$DIR"
 fi
 
 # Handle each dotfile individually.
-for FILE in $(pwd)/dotfiles/*
+for FILE in $DIR/dotfiles/*
 do
 
   # Make sure we actually have a file to work with.
@@ -253,5 +229,10 @@ do
   fi
 
 done
+
+# SSH config
+# TODO: Change this to work more generally in the above for loop.
+printf "Installing SSH config...\n"
+ln -vsf "$DIR/dotfiles/ssh/config" ~/.ssh/config
 
 printf "Done.\n"
