@@ -65,6 +65,9 @@ export GOPATH="$HOME/Go"
 export PATH="$PATH:/usr/local/go/bin"
 export PATH="$PATH:$GOPATH/bin"
 
+# Pacaur installation
+export PATH="$PATH:/usr/bin/core_perl"
+
 # TODO: Maybe change this so that the default username can be given as argument to the host-setup.sh that will put it here?
 
 export DEFAULT_USER="$USER"
