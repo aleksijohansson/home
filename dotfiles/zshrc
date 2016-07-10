@@ -57,7 +57,10 @@ plugins=(git vagrant docker docker-compose)
 source $ZSH/oh-my-zsh.sh
 
 # rbenv
-eval "$(rbenv init -)"
+if hash rbenv 2>/dev/null
+then
+  eval "$(rbenv init -)"
+fi
 
 # Go
 export GOPATH="$HOME/Source/go"
