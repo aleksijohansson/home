@@ -57,13 +57,15 @@ plugins=(git vagrant docker docker-compose)
 source $ZSH/oh-my-zsh.sh
 
 # rbenv
-export PATH="$PATH:$HOME/.rbenv/shims"
+eval "$(rbenv init -)"
 
 # Go
-# TODO: Maybe move $GOPATH under "$HOME/Source/go"?
-export GOPATH="$HOME/Go"
+export GOPATH="$HOME/Source/go"
 export PATH="$PATH:/usr/local/go/bin"
 export PATH="$PATH:$GOPATH/bin"
+
+# Composer
+export PATH="$PATH:$HOME/.composer/vendor/bin"
 
 # TODO: Maybe change this so that the default username can be given as argument to the host-setup.sh that will put it here?
 
