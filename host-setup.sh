@@ -231,7 +231,7 @@ do
     if [ -e $DOTFILE ]
     then
       printf "Existing dot file ($DOTFILE) found, backing up...\n"
-      mv $DOTFILE ~/.${FILENAME}_bak
+      mv $DOTFILE ${DOTFILE}_bak
     fi
     # Symlink the dotfile into place.
     printf "Installing dot file ($DOTFILE)...\n"
@@ -241,9 +241,42 @@ do
 
 done
 
-## SSH config
+## SSH config.
 # TODO: Change this to work more generally in the above for loop.
 printf "Installing SSH config...\n"
 ln -vsf "$DIR/dotfiles/ssh/config" ~/.ssh/config
+
+# Handle each app individually.
+for FILE in $DIR/apps/*
+do
+
+  # Make sure we actually have a file to work with.
+  if [ -f $FILE ]
+  then
+
+    IFS='/' read -r -a APPS <<< "$FILE"
+    for i in "${APPS[@]}"
+    do
+      # FILENAME gets overridden for each item and settle for the last one which is our filename.
+      FILENAME=$i
+    done
+
+    # Format the app.
+    APP=/usr/local/bin/$FILENAME
+
+    # Backup any existing app files.
+    if [ -e $APP ]
+    then
+      printf "Existing app file ($APP) found, backing up...\n"
+      mv $APP ${APP}_bak
+    fi
+    # Symlink the app files into place.
+    printf "Installing app file ($APP)...\n"
+    ln -vsf $FILE $APP
+
+  fi
+
+done
+
 
 printf "Done.\n"

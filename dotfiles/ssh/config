@@ -1,3 +1,6 @@
 Host whitepizza
-	HostName	whitepizza.hopto.org
-	User			aleksi
+	HostName	whitepizza.bounceme.net
+	User		aleksi
+Host archnode
+	HostName	139.162.236.60
+	User		aleksi

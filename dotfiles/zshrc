@@ -73,6 +73,9 @@ export PATH="$PATH:$HOME/.composer/vendor/bin"
 # Pacaur installation
 export PATH="$PATH:/usr/bin/core_perl"
 
+# Ansible Vault
+export WT_ANSIBLE_VAULT_FILE=~/WK_Secure/ansible_vault_pass.txt
+
 # TODO: Maybe change this so that the default username can be given as argument to the host-setup.sh that will put it here?
 
 export DEFAULT_USER="$USER"
