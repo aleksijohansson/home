@@ -73,6 +73,9 @@ export PATH="$PATH:$HOME/.composer/vendor/bin"
 # Pacaur installation
 export PATH="$PATH:/usr/bin/core_perl"
 
+# Ruby gems :(
+export PATH="$PATH:$HOME/.gem/ruby/2.3.0/bin"
+
 # Ansible Vault
 export WT_ANSIBLE_VAULT_FILE=~/WK_Secure/ansible_vault_pass.txt
 
