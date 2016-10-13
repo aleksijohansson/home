@@ -272,7 +272,7 @@ do
     fi
     # Symlink the app files into place.
     printf "Installing app file ($APP)...\n"
-    ln -vsf $FILE $APP
+    sudo ln -vsf $FILE $APP
 
   fi
 
