@@ -86,24 +86,28 @@ fi
 if [ $OS = "Linux" ]
 then
 
-  # Install packages with the package manager that is available.
-  if hash pacman 2>/dev/null
+  # First check if we have anything to install.
+  if [ $WGET != "" ] || [ $GIT != "" ] || [ $ZSH != "" ] || [ $UNZIP != "" ]
   then
-    sudo pacman -S $WGET $GIT $ZSH $UNZIP --noconfirm
-  elif hash dnf 2>/dev/null
-  then
-    sudo dnf clean all && sudo dnf makecache timer
-    sudo dnf -y install $WGET $GIT $ZSH $UNZIP
-  elif hash yum 2>/dev/null
-  then
-    sudo yum clean all && sudo yum makecache fast
-    sudo yum -y install $WGET $GIT $ZSH $UNZIP
-  elif hash apt-get 2>/dev/null
-  then
-    sudo apt-get --assume-yes install $WGET $GIT $ZSH $UNZIP
-  else
-    printf "None of predefined package managers found. Aborting...\n"
-    exit 1
+    # Install packages with the package manager that is available.
+    if hash pacman 2>/dev/null
+    then
+      sudo pacman -S $WGET $GIT $ZSH $UNZIP --noconfirm
+    elif hash dnf 2>/dev/null
+    then
+      sudo dnf clean all && sudo dnf makecache timer
+      sudo dnf -y install $WGET $GIT $ZSH $UNZIP
+    elif hash yum 2>/dev/null
+    then
+      sudo yum clean all && sudo yum makecache fast
+      sudo yum -y install $WGET $GIT $ZSH $UNZIP
+    elif hash apt-get 2>/dev/null
+    then
+      sudo apt-get --assume-yes install $WGET $GIT $ZSH $UNZIP
+    else
+      printf "None of predefined package managers found. Aborting...\n"
+      exit 1
+    fi
   fi
 
 fi
