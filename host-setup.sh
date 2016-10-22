@@ -62,7 +62,10 @@ then
 elif [ $OS = "Darwin" ]
 then
   # Install wget straigt up with brew.
-  brew install -y wget
+  if ! hash wget 2>/dev/null
+  then
+    brew install -y wget
+  fi
 fi
 
 ## ZSH
@@ -143,6 +146,7 @@ else
 fi
 
 ## VAULT
+# TODO: Change this to install vault with pacaur on Arch. Maybe use pacakge manager on other distros too.
 
 if ! hash vault 2>/dev/null
 then
@@ -192,7 +196,7 @@ then
 fi
 
 ## Go
-# TODO: Add installation of Go if it can be installed on armv7l? https://golang.org/dl/
+# TODO: Add installation of Go (https://golang.org/dl/) and use AUR on Arch.
 
 ## DOTFILES
 
