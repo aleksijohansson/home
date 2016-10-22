@@ -86,6 +86,11 @@ fi
 if [ $OS = "Linux" ]
 then
 
+  printf "WGET=$WGET \n"
+  printf "WGET=$GIT \n"
+  printf "WGET=$ZSH \n"
+  printf "WGET=$UNZIP \n"
+
   # First check if we have anything to install.
   if [ -n $WGET ] || [ -n $GIT ] || [ -n $ZSH] || [ -n $UNZIP ]
   then
@@ -222,7 +227,7 @@ for FILE in $DIR/dotfiles/*
 do
 
   # Make sure we actually have a file to work with.
-  if [ -f $FILE ]
+  if [ -f $FILE ] && [ ! -L $FILE ]
   then
 
     IFS='/' read -r -a DOTFILES <<< "$FILE"
@@ -236,7 +241,7 @@ do
     DOTFILE=~/.$FILENAME
 
     # Backup any existing dotfiles.
-    if [ -e $DOTFILE ]
+    if [ -f $DOTFILE ]
     then
       printf "Existing dot file ($DOTFILE) found, backing up...\n"
       mv $DOTFILE ${DOTFILE}_bak
@@ -255,6 +260,7 @@ printf "Installing SSH config...\n"
 ln -vsf "$DIR/dotfiles/ssh/config" ~/.ssh/config
 
 # Handle each app individually.
+# TODO: Using sudo here which makes the tests fail. Fix it.
 for FILE in $DIR/apps/*
 do
 
@@ -273,10 +279,10 @@ do
     APP=/usr/local/bin/$FILENAME
 
     # Backup any existing app files.
-    if [ -e $APP ]
+    if [ -f $APP ] && [ ! -L $APP ]
     then
       printf "Existing app file ($APP) found, backing up...\n"
-      mv $APP ${APP}_bak
+      sudo mv $APP ${APP}_bak
     fi
     # Symlink the app files into place.
     printf "Installing app file ($APP)...\n"
