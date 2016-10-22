@@ -86,13 +86,13 @@ fi
 if [ $OS = "Linux" ]
 then
 
-  if [ -n $WGET ] || [ -n $GIT ] || [ -n $ZSH] || [ -n $UNZIP ]
+  if [ -n $WGET ] || [ -n $GIT ] || [ -n $ZSH ] || [ -n $UNZIP ]
   then
     printf "This is a test \n"
   fi
 
   # First check if we have anything to install.
-  if [ -n $WGET ] || [ -n $GIT ] || [ -n $ZSH] || [ -n $UNZIP ]
+  if [ -n $WGET ] || [ -n $GIT ] || [ -n $ZSH ] || [ -n $UNZIP ]
   then
     # Install packages with the package manager that is available.
     if hash pacman 2>/dev/null
