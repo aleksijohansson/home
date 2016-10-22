@@ -86,10 +86,10 @@ fi
 if [ $OS = "Linux" ]
 then
 
-  printf "WGET=$WGET \n"
-  printf "WGET=$GIT \n"
-  printf "WGET=$ZSH \n"
-  printf "WGET=$UNZIP \n"
+  if [ -n $WGET ] || [ -n $GIT ] || [ -n $ZSH] || [ -n $UNZIP ]
+  then
+    printf "This is a test \n"
+  fi
 
   # First check if we have anything to install.
   if [ -n $WGET ] || [ -n $GIT ] || [ -n $ZSH] || [ -n $UNZIP ]
