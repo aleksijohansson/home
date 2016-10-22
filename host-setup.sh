@@ -87,7 +87,7 @@ if [ $OS = "Linux" ]
 then
 
   # First check if we have anything to install.
-  if [ $WGET != "" ] || [ $GIT != "" ] || [ $ZSH != "" ] || [ $UNZIP != "" ]
+  if [ ! $WGET ] || [ ! $GIT ] || [ ! $ZSH] || [ ! $UNZIP ]
   then
     # Install packages with the package manager that is available.
     if hash pacman 2>/dev/null
