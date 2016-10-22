@@ -227,7 +227,7 @@ for FILE in $DIR/dotfiles/*
 do
 
   # Make sure we actually have a file to work with.
-  if [ -f $FILE ] && [ ! -L $FILE ]
+  if [ -f $FILE ]
   then
 
     IFS='/' read -r -a DOTFILES <<< "$FILE"
@@ -241,7 +241,7 @@ do
     DOTFILE=~/.$FILENAME
 
     # Backup any existing dotfiles.
-    if [ -f $DOTFILE ]
+    if [ -f $DOTFILE ] && [ ! -L $DOTFILE ]
     then
       printf "Existing dot file ($DOTFILE) found, backing up...\n"
       mv $DOTFILE ${DOTFILE}_bak
