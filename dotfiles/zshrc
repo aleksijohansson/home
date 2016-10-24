@@ -63,9 +63,11 @@ then
 fi
 
 # Go
+# These are universal
 export GOPATH="$HOME/Source/go"
-export PATH="$PATH:/usr/local/go/bin"
 export PATH="$PATH:$GOPATH/bin"
+# This is only needed on Linux or pkg installation on macOS. macOS with brew is already in path.
+export PATH="$PATH:/usr/local/go/bin"
 
 # Composer
 export PATH="$PATH:$HOME/.composer/vendor/bin"
