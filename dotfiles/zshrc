@@ -72,9 +72,6 @@ export PATH="$PATH:/usr/local/go/bin"
 # Composer
 export PATH="$PATH:$HOME/.composer/vendor/bin"
 
-# Pacaur installation
-export PATH="$PATH:/usr/bin/core_perl"
-
 # Ruby gems :(
 export PATH="$PATH:$HOME/.gem/ruby/2.3.0/bin"
 
