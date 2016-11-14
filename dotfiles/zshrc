@@ -56,7 +56,12 @@ plugins=(git vagrant docker docker-compose)
 
 source $ZSH/oh-my-zsh.sh
 
+# Visual customizations
+zle_highlight=(default:bold)
+alias ls='ls --color=auto'
+
 # rbenv
+export PATH="$HOME/.rbenv/bin:$PATH"
 if hash rbenv 2>/dev/null
 then
   eval "$(rbenv init -)"
@@ -72,11 +77,11 @@ export PATH="$PATH:/usr/local/go/bin"
 # Composer
 export PATH="$PATH:$HOME/.composer/vendor/bin"
 
-# Ruby gems :(
-export PATH="$PATH:$HOME/.gem/ruby/2.3.0/bin"
-
 # Ansible Vault
 export WT_ANSIBLE_VAULT_FILE=~/WK_Secure/ansible_vault_pass.txt
+
+# Kontena CLI
+export SSL_IGNORE_ERRORS=true
 
 # TODO: Maybe change this so that the default username can be given as argument to the host-setup.sh that will put it here?
 
