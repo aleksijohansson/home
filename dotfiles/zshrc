@@ -56,9 +56,17 @@ plugins=(git vagrant docker docker-compose)
 
 source $ZSH/oh-my-zsh.sh
 
-# Visual customizations
+# Get OS and architecture to do OS specific actions.
+OS="$(uname)"
+ARC="$(uname -m)"
+
+# Visual customizations.
 zle_highlight=(default:bold)
-alias ls='ls --color=auto'
+## Set ls colors on Linux.
+if [ $OS = "Linux" ]
+then
+  alias ls='ls --color=auto'
+fi
 
 # rbenv
 export PATH="$HOME/.rbenv/bin:$PATH"
@@ -77,8 +85,11 @@ export PATH="$PATH:/usr/local/go/bin"
 # Composer
 export PATH="$PATH:$HOME/.composer/vendor/bin"
 
-# Brew paths for macOS
-export PATH="$PATH:/usr/local/sbin"
+# Brew paths for macOS.
+if [ $OS = "Darwin" ]
+then
+  export PATH="$PATH:/usr/local/sbin"
+fi
 
 # Ansible Vault
 export WT_ANSIBLE_VAULT_FILE=~/WK_Secure/ansible_vault_pass.txt
