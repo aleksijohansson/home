@@ -88,20 +88,21 @@ export PATH="$PATH:$HOME/.composer/vendor/bin"
 # Brew paths for macOS.
 if [ $OS = "Darwin" ]
 then
-  export PATH="$PATH:/usr/local/sbin"
+  # export PATH="$PATH:/usr/local/sbin"
 fi
 
 # Ansible Vault
-export WT_ANSIBLE_VAULT_FILE=~/WK_Secure/ansible_vault_pass.txt
+# export WT_ANSIBLE_VAULT_FILE=~/WK_Secure/ansible_vault_pass.txt
 
 # Kontena CLI
-export SSL_IGNORE_ERRORS=true
+# export SSL_IGNORE_ERRORS=true
 
 # TODO: Maybe change this so that the default username can be given as argument to the host-setup.sh that will put it here?
 
 export DEFAULT_USER="$USER"
 
-export VAGRANT_DEFAULT_PROVIDER="virtualbox"
+# Include local secrets.
+source $HOME/.secrets-zshrc.sh
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8

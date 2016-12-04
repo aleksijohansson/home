@@ -8,7 +8,7 @@ ARC="$(uname -m)"
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # Set the installation folder for automated installations like vagrant testing and cloud-config.
-SOURCE="~/Source"
+SOURCE="~/Projects"
 
 # TODO: Maybe change the shell of all users on the system for a consistent workflow?
 # TODO: Maybe setup the global zshrc at /etc/zsh/zshrc? See more info https://wiki.archlinux.org/index.php/zsh and https://github.com/robbyrussell/oh-my-zsh#advanced-installation
@@ -18,8 +18,10 @@ SOURCE="~/Source"
 # We will assume that if this is run on OS X, it's interactive.
 if [ $OS = "Darwin" ]
 then
-  if ! hash brew 2>/dev/null
+  if hash brew 2>/dev/null
   then
+    printf "Homebrew found. No need to install.\n"
+  else
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   fi
 fi
@@ -62,8 +64,10 @@ then
 elif [ $OS = "Darwin" ]
 then
   # Install wget straigt up with brew.
-  if ! hash wget 2>/dev/null
+  if hash wget 2>/dev/null
   then
+    printf "wget found. No need to install.\n"
+  else
     brew install -y wget
   fi
 fi
@@ -117,90 +121,28 @@ fi
 # Abort if we don't have zsh installed.
 if hash zsh 2>/dev/null
 then
-
   # Change shell to zsh.
   sudo chsh -s /bin/zsh $USER
-
   # Install oh-my-zsh.
-  # TODO: Change this so that it doesn't start zsh and pause there https://github.com/robbyrussell/oh-my-zsh#manual-installation
-  printf "Installing oh-my-zsh...\n"
-  sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
-
-  # Do OS specific GUI finalisations.
-  # TODO: Do these only if GUI is available.
-  if [ $OS = "Linux" ]
+  if [ ! -d "$HOME/.oh-my-zsh" ]
   then
-
-    # TODO: Implement GNOME Terminal color scheme installation here.
-    printf "Installing GNOME Terminal color scheme...\n"
-
-  elif [ $OS = "Darwin" ]
-  then
-
-    printf "Downloading Solarized Dark theme for iTerm...\n"
-    # We can expect OS X to have curl available.
-    wget -P ~/Downloads/ https://github.com/altercation/ethanschoonover.com/raw/master/projects/solarized/iterm2-colors-solarized/Solarized%20Dark.itermcolors
-    printf "Note: iTerm theme downloaded to '~/Downloads/Solarized Dark.itermcolors', please import it manually in iTerm.\n"
-
+    printf "Installing oh-my-zsh...\n"
+    git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
   fi
-
 else
   printf "zsh required, but not installed. Aborting...\n"
   exit 1
 fi
 
-## VAULT
-# TODO: Change this to install vault with pacaur on Arch. Maybe use pacakge manager on other distros too.
+## GIT
 
-if ! hash vault 2>/dev/null
+# Configure git.
+git config --global user.name "Aleksi Johansson"
+git config --global user.email "aleksi@aleksijohansson.net"
+if [ $OS = "Darwin" ]
 then
-
-  VAULTVER="0.5.2"
-  VAULTURL="https://releases.hashicorp.com/vault/$VAULTVER/vault_$VAULTVER"
-
-  # Get correct vault binary for the OS and architecture of the host.
-  if [ $OS = "Linux" ]
-  then
-
-    # We need to use sudo with Linux.
-    SUDO="sudo"
-
-    # Modern hosts here only.
-    if [ $ARC = "x86_64" ]
-    then
-      VAULTARC="_linux_amd64"
-    # There's only one binary for ARM, let's hope it works.
-    elif [[ $ARC == *"arm"* ]]
-    then
-      VAULTARC="_linux_arm"
-    else
-      printf "Your Linux architecture is not supported. Aborting...\n"
-      exit 1
-    fi
-
-  elif [ $OS = "Darwin" ]
-  then
-    # On OS X with Homebrew installed we don't need sudo.
-    SUDO=""
-    # Let's assume only moders OS X is used as host.
-    VAULTARC="_darwin_amd64"
-  else
-    printf "Your OS is not supported. Aborting...\n"
-    exit 1
-  fi
-
-  printf "Downloading Vault...\n"
-  wget "$VAULTURL$VAULTARC.zip"
-  printf "Unzipping Vault...\n"
-  unzip "vault_$VAULTVER$VAULTARC.zip"
-  rm "vault_$VAULTVER$VAULTARC.zip"
-  printf "Installing Vault...\n"
-  $SUDO mv vault /usr/local/bin/
-
+  git config --global credential.helper osxkeychain
 fi
-
-## Go
-# TODO: Add installation of Go (https://golang.org/dl/) and use AUR on Arch.
 
 ## DOTFILES
 
