@@ -102,7 +102,10 @@ fi
 export DEFAULT_USER="$USER"
 
 # Include local secrets.
-source $HOME/.secrets-zshrc.sh
+if [ -f $HOME/.secrets-zshrc.sh ]
+then
+  source $HOME/.secrets-zshrc.sh
+fi
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
