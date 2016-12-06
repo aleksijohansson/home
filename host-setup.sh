@@ -149,6 +149,8 @@ fi
 # Install dotfiles.
 printf "Installing the dotfiles...\n"
 
+# @TODO: Maybe separate desktop (like Hyper) and server software here somehow. 
+
 # Get dotfiles if we don't have them. This is the case when provisioning with cloud-config and when testing with vagrant.
 if [ ! -d "$DIR/dotfiles" ]
 then
