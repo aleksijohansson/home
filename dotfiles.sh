@@ -35,15 +35,15 @@ link_dotfile() {
   FILENAME="$( realpath --relative-to="$DIR/$DOTFILES_DIR" $1 )"
 
   # Only remove if excluded.
-  REMOVE=false
+  EXCLUDE=false
   # Check exclude lists and return if the file should be excluded.
-  for EXCLUDE in ${EXCLUDES[@]}
+  for EXC in ${EXCLUDES[@]}
   do
     # Check if filename starts with the excluded file or folder.
-    if [[ $FILENAME == $EXCLUDE* ]]
+    if [[ $FILENAME == $EXC* ]]
     then
       printf "Dotfile $FILENAME excluded on $OS.\n"
-      REMOVE=true
+      $EXCLUDE=true
     fi
   done
 
@@ -58,18 +58,18 @@ link_dotfile() {
     printf "done.\n"
   fi
   # Symlink the dotfile into place.
-  if [ -f $1 ] && [ $REMOVE != true ]
+  if [ -f $1 ] && [ $EXCLUDE != true ]
   then
     printf "Linking dotfile:\n"
     ln -svf "$1" $DOTFILE
-  elif [ -L $DOTFILE ] && [ $REMOVE == true ]
-  then
-    printf "Removing excluded dotfile $DOTFILE.\n"
-    rm $DOTFILE
-  elif [ -d $1 ]
+  elif [ -d $1 ] && [ $EXCLUDE != true ]
   # If we have a folder instead make sure it exists.
   then
     mkdir -pv $DOTFILE
+  elif [ -L $DOTFILE ] && [ $EXCLUDE == true ]
+  then
+    printf "Removing excluded dotfile $DOTFILE.\n"
+    rm $DOTFILE
   fi
 }
 
