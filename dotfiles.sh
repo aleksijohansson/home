@@ -39,10 +39,10 @@ link_dotfile() {
   # @TODO: Fix this to get the relative path to the dotfiles folder.
   FILENAME="$( realpath --relative-to="$DIR/$DOTFILES_DIR" $1 )"
 
-  if [ "$OS" == 'Darwin' ] && [ check_dotfile_excludes $DARWIN_EXCLUDES == 1 ]
+  if [ "$OS" == 'Darwin' ] && [ $( check_dotfile_excludes $DARWIN_EXCLUDES ) ]
   then
     return 0
-  elif [ "$OS" == 'Linux' ] && [ check_dotfile_excludes $LINUX_EXCLUDES == 1 ]
+  elif [ "$OS" == 'Linux' ] && [ $( check_dotfile_excludes $LINUX_EXCLUDES ) ]
   then
     return 0
   fi
