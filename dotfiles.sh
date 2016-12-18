@@ -25,35 +25,35 @@ DARWIN_EXCLUDES=()
 
 # Exclude certain dotfiles if no GUI.
 NOGUI_EXCLUDES=()
-LINUX_EXCLUDES+=('.hyper.js') # Hyper is GUI only, exclude the config.
+NOGUI_EXCLUDES+=('.hyper.js') # Hyper is GUI only, exclude the config.
 
 # Dotfile exclusion checker function.
 check_dotfile_excludes() {
   for EXCLUDE in $@
   do
-    if [ $FILENAME == $EXCLUDE* ]
+    # Check if filename starts with the excluded file or folder.
+    if [[ $FILENAME == $EXCLUDE* ]]
     then
-      return 1
+      printf "Dotfile $FILENAME excluded on $OS.\n"
+      return 0 # true
     fi
   done
+  return 1 # false
 }
 
 # Dotfile handler function.
 link_dotfile() {
-  # @TODO: Fix this to get the relative path to the dotfiles folder.
   FILENAME="$( realpath --relative-to="$DIR/$DOTFILES_DIR" $1 )"
 
-  if [ "$OS" == 'Darwin' ] && [ $( check_dotfile_excludes $DARWIN_EXCLUDES ) ]
+  # Check exclude lists and return if the file should be excluded.
+  if [ "$OS" == 'Darwin' ] && check_dotfile_excludes ${DARWIN_EXCLUDES[*]}
   then
-    printf "Dotfile $FILENAME excluded on $OS.\n"
     return 0
-  elif [ "$OS" == 'Linux' ] && [ $( check_dotfile_excludes $LINUX_EXCLUDES ) ]
+  elif [ "$OS" == 'Linux' ] && check_dotfile_excludes ${LINUX_EXCLUDES[*]}
   then
-    printf "Dotfile $FILENAME excluded on $OS.\n"
     return 0
-  elif [ "$1" != 'gui' ] && [ $( check_dotfile_excludes $NOGUI_EXCLUDES ) ]
+  elif [ "$1" != 'gui' ] && check_dotfile_excludes ${NOGUI_EXCLUDES[*]}
   then
-    printf "Dotfile $FILENAME excluded on $OS because it's a GUI config.\n"
     return 0
   fi
 
@@ -70,7 +70,7 @@ link_dotfile() {
   # Symlink the dotfile into place.
   if [ -f $1 ]
   then
-    printf "Installing dotfile:\n"
+    printf "Linking dotfile:\n"
     ln -svf "$1" $DOTFILE
   elif [ -d $1 ]
   # If we have a folder instead make sure it exists.
@@ -79,7 +79,6 @@ link_dotfile() {
   fi
 }
 # Function to iterate over files and go all out inception for folders.
-# @TODO: Maybe separate desktop (like Hyper's .hyper.js) and server software here somehow.
 iterate_dotfiles() {
   for ITEM in $1/*
   do

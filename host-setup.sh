@@ -56,8 +56,8 @@ then
     # In either case the default Homebrew installation script that uses sudo will work.
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   fi
-  # @TODO: macOS installation here.
-  # brew install -y wget
+  # Install the required utilities with brew.
+  brew install -y ${INSTALL[*]}
 
 # Utility installation on Linux. Includes system update where needed.
 elif [ "$OS" == "Linux" ]
