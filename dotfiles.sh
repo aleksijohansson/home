@@ -24,7 +24,7 @@ DARWIN_EXCLUDES=()
 
 # Dotfile exclusion checker function.
 check_dotfile_excludes() {
-  for EXCLUDE in ${1[@]}
+  for EXCLUDE in $@
   do
     if [ $FILENAME == $EXCLUDE* ]
     then
