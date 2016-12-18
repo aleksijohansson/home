@@ -43,12 +43,12 @@ for FILE in "$DIR/dotfiles/*"
 do
 
   # Make sure we actually have a file to work with.
-  if [ -f $FILE ]
+  if [ -f "$FILE" ]
   then
 
     link_dotfile $FILE
 
-  elif [ -d $FILE ]
+  elif [ -d "$FILE" ]
   then
 
     printf "Work in progress."
