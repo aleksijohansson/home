@@ -3,7 +3,8 @@
 # Script to setup shared consistent shell and shell utility configuration.
 # Supports all operating systems defined in the project documentation.
 # Requirements for independent use:
-# - ./dotfiles folder relative to the script including the dotfiles you want to setup
+# - ./dotfiles folder relative to the script including the dotfiles you want to setup.
+# - Use argument 'gui' to setup also GUI app configs.
 
 # Get OS and architecture to do OS specific actions.
 OS="$(uname)"
@@ -22,13 +23,16 @@ LINUX_EXCLUDES+=('Library') # Exclude the Library folder and anything on it.
 # Exclude certain dotfiles on macOS.
 DARWIN_EXCLUDES=()
 
+# Exclude certain dotfiles if no GUI.
+NOGUI_EXCLUDES=()
+LINUX_EXCLUDES+=('.hyper.js') # Hyper is GUI only, exclude the config.
+
 # Dotfile exclusion checker function.
 check_dotfile_excludes() {
   for EXCLUDE in $@
   do
     if [ $FILENAME == $EXCLUDE* ]
     then
-      printf "Dotfile $FILENAME excluded on $OS.\n"
       return 1
     fi
   done
@@ -41,9 +45,15 @@ link_dotfile() {
 
   if [ "$OS" == 'Darwin' ] && [ $( check_dotfile_excludes $DARWIN_EXCLUDES ) ]
   then
+    printf "Dotfile $FILENAME excluded on $OS.\n"
     return 0
   elif [ "$OS" == 'Linux' ] && [ $( check_dotfile_excludes $LINUX_EXCLUDES ) ]
   then
+    printf "Dotfile $FILENAME excluded on $OS.\n"
+    return 0
+  elif [ "$1" != 'gui' ] && [ $( check_dotfile_excludes $NOGUI_EXCLUDES ) ]
+  then
+    printf "Dotfile $FILENAME excluded on $OS because it's a GUI config.\n"
     return 0
   fi
 
@@ -53,28 +63,26 @@ link_dotfile() {
   # Backup any existing dotfiles and only if they are files, not symlinks.
   if [ -f $DOTFILE ] && [ ! -L $DOTFILE ]
   then
-    printf "Existing dotfile ($DOTFILE) found, backing up...\n"
+    printf "Existing dotfile ($DOTFILE) found, backing up... "
     mv $DOTFILE ${DOTFILE}_bak
+    printf "done.\n"
   fi
   # Symlink the dotfile into place.
   if [ -f $1 ]
   then
-    printf "Installing dotfile ($DOTFILE)...\n"
-    ln -vsf "$1" $DOTFILE
+    printf "Installing dotfile:\n"
+    ln -svf "$1" $DOTFILE
   elif [ -d $1 ]
   # If we have a folder instead make sure it exists.
   then
-    mkdir -p $DOTFILE
+    mkdir -pv $DOTFILE
   fi
 }
 # Function to iterate over files and go all out inception for folders.
 # @TODO: Maybe separate desktop (like Hyper's .hyper.js) and server software here somehow.
-# @TODO: Also separate macOS and Linux folders.
 iterate_dotfiles() {
   for ITEM in $1/*
   do
-    # @DEBUG
-    printf "Item is: $ITEM\n"
     if [ -f $ITEM ]
     # Link files.
     then
