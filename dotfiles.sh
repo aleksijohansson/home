@@ -51,7 +51,7 @@ iterate_dotfiles() {
     elif [ -d $ITEM ]
     # Process folders further.
     then
-      iterator() $ITEM
+      iterator() $ITEM/*
     fi
   done
 }
