@@ -34,8 +34,15 @@ link_dotfile() {
     mv $DOTFILE ${DOTFILE}_bak
   fi
   # Symlink the dotfile into place.
-  printf "Installing dot file ($DOTFILE)...\n"
-  ln -vsf $1 $DOTFILE
+  if [ -f $1 ]
+  then
+    printf "Installing dot file ($DOTFILE)...\n"
+    ln -vsf "$1" $DOTFILE
+  elif [ -d $1 ]
+  # If we have a folder instead make sure it exists.
+  then
+    mkdir -p "$1"
+  fi
 }
 # Function to iterate over files and go all out inception for folders.
 # @TODO: Maybe separate desktop (like Hyper's .hyper.js) and server software here somehow.
@@ -51,6 +58,7 @@ iterate_dotfiles() {
     elif [ -d $ITEM ]
     # Process folders further.
     then
+      link_dotfile $ITEM # This will make sure the folder exists.
       iterate_dotfiles "$ITEM"
     fi
   done
