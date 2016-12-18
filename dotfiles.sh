@@ -43,7 +43,7 @@ link_dotfile() {
     if [[ $FILENAME == $EXC* ]]
     then
       printf "Dotfile $FILENAME excluded on $OS.\n"
-      $EXCLUDE=true
+      EXCLUDE=true
     fi
   done
 
