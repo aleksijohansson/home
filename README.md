@@ -1,15 +1,17 @@
 # host-setup
-A project for setting up common configuration and commonly used apps on a host machine (laptop, server etc.). Basic support for macOS and Linuxes Arch, Centos, Fedora and Ubuntu. Main focus on macOS and Arch Linux. See individual scripts to see the support on those.
+A project for setting up consistent shell and shell utility configuration and commonly used apps on a host machine (desktop, server). Basic support for macOS and Linux distributions Arch, CentOS, Fedora and Ubuntu. Main focus on macOS and Arch Linux, because those are my choices for a desktop operating system. See individual scripts to see the support on those.
 
 Includes the following scripts:
-- shell-setup.sh:
+- host-setup.sh:
   - Installation and configuration of shell and basic shell utilities.
-- app-install.sh:
-  - Installation of commonly used apps with a GUI on a laptop or desktop.
+  - Wrapper script to run the previously mentioned scripts all at once targeted for a host with a GUI or to a host without GUI like a server.
 - dotfiles.sh:
   - Consistent configuration of common shell utilities by symlinking dotfiles from the shared repository.
-- host-setup.sh:
-  - Wrapper script to run the previously mentioned scripts all at once targeted for a host with a GUI or to a host without GUI like a server.
+- container-app-install.sh:
+  - Install apps that run as containerized from scripts from the apps folder of this project.
+- gui-app-install.sh:
+  - Installation of commonly used apps with a GUI on a laptop or desktop.
+  - macOS and Arch Linux only.
 
 The scripts are just plain bash scripts at least for now because the industry standard cloud-init project is not available on macOS.
 
@@ -31,5 +33,8 @@ Requirements:
 
 *Note: In order to test macOS provisioning with vagrant, your development host machine needs to be macOS.*
 
-## TODO
+## Upcoming features
+- Include Linux kernel firewall and macOS firewall setup
+  - Not sure if enabling macOS firewall can be scripted
 - Use cloud-init or terraform where possible instead of plain bash scripts
+- Include existing SSH private keys setup somehow securely
