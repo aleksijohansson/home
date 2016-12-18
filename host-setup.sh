@@ -95,20 +95,20 @@ then
 fi
 
 # Change shell to zsh and install oh-my-zsh.
-# if hash zsh 2>/dev/null
-# then
-#   # Change shell to zsh.
-#   sudo chsh -s /bin/zsh $USER
-#   # Install oh-my-zsh.
-#   if [ ! -d "$HOME/.oh-my-zsh" ]
-#   then
-#     printf "Installing oh-my-zsh...\n"
-#     git clone https://github.com/robbyrussell/oh-my-zsh.git "$HOME/.oh-my-zsh"
-#   fi
-# else
-#   printf "Shell zsh required, but not installed. Aborting...\n"
-#   exit 1
-# fi
+if hash zsh 2>/dev/null
+then
+  # Change shell to zsh.
+  sudo chsh -s /bin/zsh $USER
+  # Install oh-my-zsh.
+  if [ ! -d "$HOME/.oh-my-zsh" ]
+  then
+    printf "Installing oh-my-zsh...\n"
+    git clone https://github.com/robbyrussell/oh-my-zsh.git "$HOME/.oh-my-zsh"
+  fi
+else
+  printf "Shell zsh required, but not installed. Aborting...\n"
+  exit 1
+fi
 
 # Get the enclosing folder of our script.
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
