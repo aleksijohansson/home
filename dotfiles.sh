@@ -23,7 +23,7 @@ LINUX_EXCLUDES+=('Library') # Exclude the Library folder and anything on it.
 DARWIN_EXCLUDES=()
 
 # Dotfile exclusion checker function.
-exclude_dotfile() {
+check_dotfile_excludes() {
   for EXCLUDE in ${1[@]}
   do
     if [ $FILENAME == $EXCLUDE* ]
@@ -39,10 +39,10 @@ link_dotfile() {
   # @TODO: Fix this to get the relative path to the dotfiles folder.
   FILENAME="$( realpath --relative-to="$DIR/$DOTFILES_DIR" $1 )"
 
-  if [ "$OS" == 'Darwin' ] && [ exclude_dotfile $DARWIN_EXCLUDES ]
+  if [ "$OS" == 'Darwin' ] && [ check_dotfile_excludes $DARWIN_EXCLUDES == 1 ]
   then
     return 0
-  elif [ "$OS" == 'Linux' ] && [ exclude_dotfile $LINUX_EXCLUDES ]
+  elif [ "$OS" == 'Linux' ] && [ check_dotfile_excludes $LINUX_EXCLUDES == 1 ]
   then
     return 0
   fi
