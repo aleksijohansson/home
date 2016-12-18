@@ -37,7 +37,17 @@ link_dotfile() {
 
 # Iterate over files in the dotfile folder.
 # @TODO: Maybe separate desktop (like Hyper's .hyper.js) and server software here somehow.
+# Init the list of dotfiles.
+DOTFILES=()
 for FILE in $DIR/dotfiles/*
+do
+  DOTFILES+=($FILE)
+done
+for FILE in $DIR/dotfiles/.*
+do
+  DOTFILES+=($FILE)
+done
+for FILE in ${DOTFILES[@]}
 do
 
   # Make sure we actually have a file to work with.

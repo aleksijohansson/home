@@ -41,7 +41,7 @@ do
 done
 
 # @DEBUG
-printf "Utilities to be installed: ${INSTALL[@]}\n"
+printf "Utilities to be installed: ${INSTALL[*]}\n"
 
 # Utility installation on macOS.
 if [ "$OS" == "Darwin" ]
@@ -63,19 +63,19 @@ then
   if hash pacman 2>/dev/null
   then
     sudo pacman -Syy --noconfirm
-    sudo pacman -S ${INSTALL[@]} --noconfirm
+    sudo pacman -S ${INSTALL[*]} --noconfirm
   elif hash dnf 2>/dev/null
   then
     sudo dnf clean all && sudo dnf makecache timer
-    sudo dnf -y install ${INSTALL[@]}
+    sudo dnf -y install ${INSTALL[*]}
   elif hash yum 2>/dev/null
   then
     sudo yum clean all && sudo yum makecache fast
-    sudo yum -y install ${INSTALL[@]}
+    sudo yum -y install ${INSTALL[*]}
   elif hash apt-get 2>/dev/null
   then
     sudo apt-get update
-    sudo apt-get --assume-yes install ${INSTALL[@]}
+    sudo apt-get --assume-yes install ${INSTALL[*]}
   else
     printf "None of predefined package managers (pacman, dnf, yum or apt-get) found. Aborting...\n"
     exit 1
@@ -92,20 +92,20 @@ then
 fi
 
 # Change shell to zsh and install oh-my-zsh.
-if hash zsh 2>/dev/null
-then
-  # Change shell to zsh.
-  sudo chsh -s /bin/zsh $USER
-  # Install oh-my-zsh.
-  if [ ! -d "$HOME/.oh-my-zsh" ]
-  then
-    printf "Installing oh-my-zsh...\n"
-    git clone https://github.com/robbyrussell/oh-my-zsh.git "$HOME/.oh-my-zsh"
-  fi
-else
-  printf "Shell zsh required, but not installed. Aborting...\n"
-  exit 1
-fi
+# if hash zsh 2>/dev/null
+# then
+#   # Change shell to zsh.
+#   sudo chsh -s /bin/zsh $USER
+#   # Install oh-my-zsh.
+#   if [ ! -d "$HOME/.oh-my-zsh" ]
+#   then
+#     printf "Installing oh-my-zsh...\n"
+#     git clone https://github.com/robbyrussell/oh-my-zsh.git "$HOME/.oh-my-zsh"
+#   fi
+# else
+#   printf "Shell zsh required, but not installed. Aborting...\n"
+#   exit 1
+# fi
 
 # Get the enclosing folder of our script.
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
