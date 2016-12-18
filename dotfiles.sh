@@ -15,13 +15,37 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 # Set the actual dotfiles folder here so that it can be easily changed.
 DOTFILES_DIR="dotfiles"
 
+# Exclude certain dotfiles on Linux.
+LINUX_EXCLUDES=()
+LINUX_EXCLUDES+=('Library') # Exclude the Library folder and anything on it.
+
+# Exclude certain dotfiles on macOS.
+DARWIN_EXCLUDES=()
+
+# Dotfile exclusion checker function.
+exclude_dotfile() {
+  for EXCLUDE in ${1[@]}
+  do
+    if [ $FILENAME == $EXCLUDE* ]
+    then
+      printf "Dotfile $FILENAME excluded on $OS.\n"
+      return 1
+    fi
+  done
+}
+
 # Dotfile handler function.
 link_dotfile() {
   # @TODO: Fix this to get the relative path to the dotfiles folder.
   FILENAME="$( realpath --relative-to="$DIR/$DOTFILES_DIR" $1 )"
 
-  # @DEBUG
-  printf "Filename is: $FILENAME\n"
+  if [ "$OS" == 'Darwin' ] && [ exclude_dotfile $DARWIN_EXCLUDES ]
+  then
+    return 0
+  elif [ "$OS" == 'Linux' ] && [ exclude_dotfile $LINUX_EXCLUDES ]
+  then
+    return 0
+  fi
 
   # Set the dotfile path. They all live in the $HOME folder of current user.
   DOTFILE="$HOME/$FILENAME"
@@ -29,13 +53,13 @@ link_dotfile() {
   # Backup any existing dotfiles and only if they are files, not symlinks.
   if [ -f $DOTFILE ] && [ ! -L $DOTFILE ]
   then
-    printf "Existing dot file ($DOTFILE) found, backing up...\n"
+    printf "Existing dotfile ($DOTFILE) found, backing up...\n"
     mv $DOTFILE ${DOTFILE}_bak
   fi
   # Symlink the dotfile into place.
   if [ -f $1 ]
   then
-    printf "Installing dot file ($DOTFILE)...\n"
+    printf "Installing dotfile ($DOTFILE)...\n"
     ln -vsf "$1" $DOTFILE
   elif [ -d $1 ]
   # If we have a folder instead make sure it exists.
@@ -45,6 +69,7 @@ link_dotfile() {
 }
 # Function to iterate over files and go all out inception for folders.
 # @TODO: Maybe separate desktop (like Hyper's .hyper.js) and server software here somehow.
+# @TODO: Also separate macOS and Linux folders.
 iterate_dotfiles() {
   for ITEM in $1/*
   do
