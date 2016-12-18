@@ -62,7 +62,7 @@ link_dotfile() {
   then
     printf "Linking dotfile:\n"
     ln -svf "$1" $DOTFILE
-  elif [ -f $1 ] && [ $REMOVE == true ]
+  elif [ -L $DOTFILE ] && [ $REMOVE == true ]
   then
     printf "Removing excluded dotfile $DOTFILE.\n"
     rm $DOTFILE
