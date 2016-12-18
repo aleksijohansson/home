@@ -3,17 +3,14 @@
 # Script to setup shared consistent shell and shell utility configuration.
 # Supports all operating systems defined in the project documentation.
 # Requirements for independent use:
-# - ./dotfiles folder relative to the script
+# - ./dotfiles folder relative to the script including the dotfiles you want to setup
 
 # Get OS and architecture to do OS specific actions.
 OS="$(uname)"
 ARC="$(uname -m)"
 
 # Get the enclosing folder of our script.
-# @TODO: How does this work, if this script is started from another script?
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-# @DEBUG
-printf "dotfiles.sh script DIR=$DIR\n"
 
 # Dotfile handler function.
 link_dotfile() {
@@ -52,7 +49,7 @@ do
   elif [ -d $FILE ]
   then
 
-
+    printf "Work in progress."
 
   fi
 

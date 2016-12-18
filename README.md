@@ -9,6 +9,7 @@ Includes the following scripts:
   - Consistent configuration of common shell utilities by symlinking dotfiles from the shared repository.
 - container-app-install.sh:
   - Install apps that run as containerized from scripts from the apps folder of this project.
+  - Currently unfinished and not working.
 - gui-app-install.sh:
   - Installation of commonly used apps with a GUI on a laptop or desktop.
   - macOS and Arch Linux only.
@@ -34,7 +35,8 @@ Requirements:
 *Note: In order to test macOS provisioning with vagrant, your development host machine needs to be macOS.*
 
 ## Upcoming features
-- Include Linux kernel firewall and macOS firewall setup
-  - Not sure if enabling macOS firewall can be scripted
-- Use cloud-init or terraform where possible instead of plain bash scripts
-- Include existing SSH private keys setup somehow securely
+- container-app-install.sh script with at least one containerized utility to use.
+- Include Linux kernel firewall and macOS firewall setup.
+  - Not sure if enabling macOS firewall can be scripted.
+- Use cloud-init or terraform where possible instead of plain bash scripts.
+- Include existing SSH private keys setup somehow securely.
