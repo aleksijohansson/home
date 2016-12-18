@@ -24,7 +24,8 @@ then
 elif [ "$OS" == 'Linux' ]
 then
   EXCLUDES+=('Library') # Exclude the Library folder and anything on it.
-elif [ "$1" != 'gui' ]
+fi
+if [ "$1" != 'gui' ]
 then
   EXCLUDES+=('.hyper.js') # Hyper is GUI only, exclude the config.
 fi
@@ -33,6 +34,8 @@ fi
 link_dotfile() {
   FILENAME="$( realpath --relative-to="$DIR/$DOTFILES_DIR" $1 )"
 
+  # Only remove if excluded.
+  REMOVE=false
   # Check exclude lists and return if the file should be excluded.
   for EXCLUDE in ${EXCLUDES[@]}
   do
@@ -40,7 +43,7 @@ link_dotfile() {
     if [[ $FILENAME == $EXCLUDE* ]]
     then
       printf "Dotfile $FILENAME excluded on $OS.\n"
-      return 0 # true
+      REMOVE=true
     fi
   done
 
@@ -55,10 +58,14 @@ link_dotfile() {
     printf "done.\n"
   fi
   # Symlink the dotfile into place.
-  if [ -f $1 ]
+  if [ -f $1 ] && [ $REMOVE != true ]
   then
     printf "Linking dotfile:\n"
     ln -svf "$1" $DOTFILE
+  elif [ -f $1 ] && [ $REMOVE == true ]
+  then
+    printf "Removing excluded dotfile $DOTFILE.\n"
+    rm $DOTFILE
   elif [ -d $1 ]
   # If we have a folder instead make sure it exists.
   then
