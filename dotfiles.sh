@@ -22,7 +22,7 @@ link_dotfile() {
   done
 
   # @DEBUG
-  prinf "Filename is: $FILENAME\n"
+  printf "Filename is: $FILENAME\n"
 
   # Set the dotfile path. They all live in the $HOME folder of current user.
   DOTFILE="$HOME/$FILENAME"
@@ -40,7 +40,7 @@ link_dotfile() {
 # Function to iterate over files and go all out inception for folders.
 # @TODO: Maybe separate desktop (like Hyper's .hyper.js) and server software here somehow.
 iterate_dotfiles() {
-  for ITEM in $1
+  for ITEM in $1/*
   do
     # @DEBUG
     printf "Item is: $ITEM\n"
@@ -51,7 +51,7 @@ iterate_dotfiles() {
     elif [ -d $ITEM ]
     # Process folders further.
     then
-      iterate_dotfiles $ITEM/*
+      iterate_dotfiles "$ITEM"
     fi
   done
 }
@@ -60,7 +60,7 @@ iterate_dotfiles() {
 shopt -s dotglob
 
 # Iterate over files in the dotfile folder.
-iterate_dotfiles $DIR/dotfiles/*
+iterate_dotfiles "$DIR/dotfiles"
 
 # Change bash dot handling back to the way it was.
 shopt -u dotglob
