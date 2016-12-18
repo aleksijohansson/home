@@ -19,14 +19,18 @@ UTILITIES=()
 if [ "$OS" == 'Darwin' ]
 # macOS utility requirements.
 then
+  # These are just for convenience.
   UTILITIES+=('wget')
 elif [ "$OS" == 'Linux' ]
 # Linux utility requirements.
 then
+  # These are needed by the setup.
   UTILITIES+=('git')
+  UTILITIES+=('zsh')
+  # These are just for convenience.
   UTILITIES+=('unzip')
   UTILITIES+=('wget')
-  UTILITIES+=('zsh')
+
 fi
 
 # Initialize the array of utilities to install.

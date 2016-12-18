@@ -21,7 +21,7 @@ link_dotfile() {
     FILENAME=$i
   done
 
-  # Set the dotfile path. They all live in the home folder of current user.
+  # Set the dotfile path. They all live in the $HOME folder of current user.
   DOTFILE="$HOME/$FILENAME"
 
   # Backup any existing dotfiles and only if they are files, not symlinks.
@@ -35,19 +35,11 @@ link_dotfile() {
   ln -vsf $1 $DOTFILE
 }
 
+# Change bash dot handling so that using * includes hidden files.
+shopt -s dotglob
 # Iterate over files in the dotfile folder.
 # @TODO: Maybe separate desktop (like Hyper's .hyper.js) and server software here somehow.
-# Init the list of dotfiles.
-DOTFILES=()
-for FILE in $DIR/dotfiles/*
-do
-  DOTFILES+=($FILE)
-done
-for FILE in $DIR/dotfiles/.*
-do
-  DOTFILES+=($FILE)
-done
-for FILE in ${DOTFILES[@]}
+for FILE in "$DIR/dotfiles/*"
 do
 
   # Make sure we actually have a file to work with.
@@ -64,3 +56,6 @@ do
   fi
 
 done
+
+# Change bash dot handling back to the way it was.
+shopt -u dotglob
