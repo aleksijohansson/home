@@ -42,6 +42,9 @@ shopt -s dotglob
 for FILE in "$DIR/dotfiles/*"
 do
 
+  # @DEBUG
+  printf "File is: $FILE\n"
+
   # Make sure we actually have a file to work with.
   if [ -f "$FILE" ]
   then
