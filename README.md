@@ -1,5 +1,7 @@
 # host-setup
-A project for setting up common configuration and commonly used apps on a host machine (laptop, server etc.). Includes the following scripts:
+A project for setting up common configuration and commonly used apps on a host machine (laptop, server etc.). Basic support for macOS and Linuxes Arch, Centos, Fedora and Ubuntu. Main focus on macOS and Arch Linux. See individual scripts to see the support on those.
+
+Includes the following scripts:
 - shell-setup.sh:
   - Installation and configuration of shell and basic shell utilities.
 - app-install.sh:
