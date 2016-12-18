@@ -39,19 +39,19 @@ link_dotfile() {
 shopt -s dotglob
 # Iterate over files in the dotfile folder.
 # @TODO: Maybe separate desktop (like Hyper's .hyper.js) and server software here somehow.
-for FILE in "$DIR/dotfiles/*"
+for FILE in $DIR/dotfiles/*
 do
 
   # @DEBUG
   printf "File is: $FILE\n"
 
   # Make sure we actually have a file to work with.
-  if [ -f "$FILE" ]
+  if [ -f $FILE ]
   then
 
     link_dotfile $FILE
 
-  elif [ -d "$FILE" ]
+  elif [ -d $FILE ]
   then
 
     printf "Work in progress."

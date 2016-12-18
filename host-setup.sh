@@ -44,9 +44,6 @@ do
   fi
 done
 
-# @DEBUG
-printf "Utilities to be installed: ${INSTALL[*]}\n"
-
 # Utility installation on macOS.
 if [ "$OS" == "Darwin" ]
 then
