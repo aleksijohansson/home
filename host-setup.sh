@@ -19,6 +19,8 @@ UTILITIES=()
 if [ "$OS" == 'Darwin' ]
 # macOS utility requirements.
 then
+  # These are needed by the setup.
+  UTILITIES+=('coreutils') # Includes realpath utility.
   # These are just for convenience.
   UTILITIES+=('wget')
 elif [ "$OS" == 'Linux' ]
@@ -26,6 +28,7 @@ elif [ "$OS" == 'Linux' ]
 then
   # These are needed by the setup.
   UTILITIES+=('git')
+  UTILITIES+=('realpath')
   UTILITIES+=('zsh')
   # These are just for convenience.
   UTILITIES+=('unzip')

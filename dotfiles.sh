@@ -12,14 +12,13 @@ ARC="$(uname -m)"
 # Get the enclosing folder of our script.
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
+# Set the actual dotfiles folder here so that it can be easily changed.
+DOTFILES_DIR="dotfiles"
+
 # Dotfile handler function.
 link_dotfile() {
-  IFS='/' read -r -a DOTFILES <<< "$1"
-  for i in "${DOTFILES[@]}"
-  do
-    # FILENAME gets overridden for each item and settle for the last one which is our filename.
-    FILENAME=$i
-  done
+  # @TODO: Fix this to get the relative path to the dotfiles folder.
+  FILENAME="$( realpath --relative-to="$DIR/$DOTFILES_DIR" $1 )"
 
   # @DEBUG
   printf "Filename is: $FILENAME\n"
@@ -41,7 +40,7 @@ link_dotfile() {
   elif [ -d $1 ]
   # If we have a folder instead make sure it exists.
   then
-    mkdir -p "$1"
+    mkdir -p $DOTFILE
   fi
 }
 # Function to iterate over files and go all out inception for folders.
@@ -68,7 +67,7 @@ iterate_dotfiles() {
 shopt -s dotglob
 
 # Iterate over files in the dotfile folder.
-iterate_dotfiles "$DIR/dotfiles"
+iterate_dotfiles "$DIR/$DOTFILES_DIR"
 
 # Change bash dot handling back to the way it was.
 shopt -u dotglob
