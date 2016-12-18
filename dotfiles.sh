@@ -16,20 +16,25 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 # Set the actual dotfiles folder here so that it can be easily changed.
 DOTFILES_DIR="dotfiles"
 
-# Exclude certain dotfiles on Linux.
-LINUX_EXCLUDES=()
-LINUX_EXCLUDES+=('Library') # Exclude the Library folder and anything on it.
+# Exclude certain dotfiles on based on $OS and 'gui' argument.
+EXCLUDES=()
+if [ "$OS" == 'Darwin' ]
+then
+  EXCLUDES=() # No excludes on Darwin at the moment.
+elif [ "$OS" == 'Linux' ]
+then
+  EXCLUDES+=('Library') # Exclude the Library folder and anything on it.
+elif [ "$1" != 'gui' ]
+then
+  EXCLUDES+=('.hyper.js') # Hyper is GUI only, exclude the config.
+fi
 
-# Exclude certain dotfiles on macOS.
-DARWIN_EXCLUDES=()
+# Dotfile handler function.
+link_dotfile() {
+  FILENAME="$( realpath --relative-to="$DIR/$DOTFILES_DIR" $1 )"
 
-# Exclude certain dotfiles if no GUI.
-NOGUI_EXCLUDES=()
-NOGUI_EXCLUDES+=('.hyper.js') # Hyper is GUI only, exclude the config.
-
-# Dotfile exclusion checker function.
-check_dotfile_excludes() {
-  for EXCLUDE in $@
+  # Check exclude lists and return if the file should be excluded.
+  for EXCLUDE in ${EXCLUDES[@]}
   do
     # Check if filename starts with the excluded file or folder.
     if [[ $FILENAME == $EXCLUDE* ]]
@@ -38,24 +43,6 @@ check_dotfile_excludes() {
       return 0 # true
     fi
   done
-  return 1 # false
-}
-
-# Dotfile handler function.
-link_dotfile() {
-  FILENAME="$( realpath --relative-to="$DIR/$DOTFILES_DIR" $1 )"
-
-  # Check exclude lists and return if the file should be excluded.
-  if [ "$OS" == 'Darwin' ] && check_dotfile_excludes ${DARWIN_EXCLUDES[*]}
-  then
-    return 0
-  elif [ "$OS" == 'Linux' ] && check_dotfile_excludes ${LINUX_EXCLUDES[*]}
-  then
-    return 0
-  elif [ "$1" != 'gui' ] && check_dotfile_excludes ${NOGUI_EXCLUDES[*]}
-  then
-    return 0
-  fi
 
   # Set the dotfile path. They all live in the $HOME folder of current user.
   DOTFILE="$HOME/$FILENAME"
@@ -78,6 +65,7 @@ link_dotfile() {
     mkdir -pv $DOTFILE
   fi
 }
+
 # Function to iterate over files and go all out inception for folders.
 iterate_dotfiles() {
   for ITEM in $1/*
