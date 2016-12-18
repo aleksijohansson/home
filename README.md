@@ -1,11 +1,25 @@
 # host-setup
-Configuration of dotfiles etc.
+A project for setting up common configuration and commonly used apps on a host machine (laptop, server etc.). Includes the following scripts:
+- shell-setup.sh:
+  - Installation and configuration of shell and basic shell utilities.
+- app-install.sh:
+  - Installation of commonly used apps with a GUI on a laptop or desktop.
+- dotfiles.sh:
+  - Consistent configuration of common shell utilities by symlinking dotfiles from the shared repository.
+- host-setup.sh:
+  - Wrapper script to run the previously mentioned scripts all at once targeted for a host with a GUI or to a host without GUI like a server.
 
-## Project setup
-Run the home-setup.sh to setup a host:
+The scripts are just plain bash scripts at least for now because the industry standard cloud-init project is not available on macOS.
+
+## Usage
+One can easily take advantage of the scripts to their own needs.
+
+The scripts can be run like any other scripts on the host:
 ~~~
-./host-setup.sh
+./shell-setup.sh
 ~~~
+
+One universally useful script is the `dotfiles.sh` script that iterates over the files in the dotfiles directory which matches the local users home directory and symlinks the files from the dotfiles folder to the local users home folder. This allows using a consistent and easily updatable configuration across hosts.
 
 ## Development and testing
 Requirements:
@@ -13,4 +27,7 @@ Requirements:
 - virtualbox
 - virtualbox extension pack
 
-Note! In order to test OS X provisioning with vagrant, your development machine needs to be OS X.
+*Note: In order to test macOS provisioning with vagrant, your development host machine needs to be macOS.*
+
+## TODO
+- Use cloud-init or terraform where possible instead of plain bash scripts
