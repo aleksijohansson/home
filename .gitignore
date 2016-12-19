@@ -3,3 +3,6 @@ vagrant/*/.vagrant
 
 # IDE related.
 .idea
+
+# Any logs
+*.log
