@@ -135,8 +135,6 @@ then
   printf "Getting the source...\n"
   DIR="$SOURCE/host-setup"
   git clone https://github.com/aleksijohansson/host-setup.git $DIR
-  # @DEBUG
-  cd $DIR && git checkout cask_installation_plus_refactoring
 fi
 
 # Run different scripts wether the host has GUI or not.
