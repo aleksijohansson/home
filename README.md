@@ -36,9 +36,15 @@ Requirements:
 *Note: In order to test macOS provisioning with vagrant, your development host machine needs to be macOS.*
 
 ## Upcoming features
+- macOS fixes:
+  - `./host-setup.sh: line 12: /etc/os-release: No such file or directory`
+- Make sure package installation is not tried if not needed.
+- Make sure shell change is not done again if not needed.
+- Fix situations where package name doesn't match utility name and reinstall is tried.
 - gui-app-install.sh script with commonly used apps.
 - container-app-install.sh script with at least one containerized utility to use.
 - Include Linux kernel firewall and macOS firewall setup.
   - Not sure if enabling macOS firewall can be scripted.
 - Use cloud-init or terraform where possible instead of plain bash scripts.
 - Include existing SSH private keys setup somehow securely.
+  - On macOS add keys with `ssh-add -K ~/.ssh/id_rsa`.
