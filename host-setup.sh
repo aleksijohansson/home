@@ -1,124 +1,108 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+# Init script to set up shell and basic shell utilities and a wrapper script for
+# other scripts for setting up a host machine. Source folder defaults to
+# $HOME/Projects, but works if you clone the project to any folder on the machine.
 
 # Get OS and architecture to do OS specific actions.
 OS="$(uname)"
 ARC="$(uname -m)"
 
-# Get the location of our script.
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+# This should give us $ID variable with the name of the distro on it.
+source /etc/os-release
+DISTRO=$ID
 
-# Set the installation folder for automated installations like vagrant testing and cloud-config.
-SOURCE="~/Projects"
+# @TODO: Maybe change the shell of all users on the system for a consistent workflow?
+# @TODO: Maybe setup the global zshrc at /etc/zsh/zshrc? See more info https://wiki.archlinux.org/index.php/zsh and https://github.com/robbyrussell/oh-my-zsh#advanced-installation
 
-# TODO: Maybe change the shell of all users on the system for a consistent workflow?
-# TODO: Maybe setup the global zshrc at /etc/zsh/zshrc? See more info https://wiki.archlinux.org/index.php/zsh and https://github.com/robbyrussell/oh-my-zsh#advanced-installation
+# Initialize the array of utilities to check for installation.
+UTILITIES=()
 
-## HOMEBREW
-
-# We will assume that if this is run on OS X, it's interactive.
-if [ $OS = "Darwin" ]
+# Define the utilities to be installed in alphabetical order.
+# A package per line so that changes are easy to diff with git.
+if [ "$OS" == 'Darwin' ]
+# macOS utility requirements.
 then
-  if hash brew 2>/dev/null
+  # These are needed by the setup.
+  UTILITIES+=('coreutils')
+  # These are just for convenience.
+  UTILITIES+=('wget')
+elif [ "$OS" == 'Linux' ]
+# Linux utility requirements.
+then
+  # These are needed by the setup.
+  UTILITIES+=('git')
+  UTILITIES+=('zsh')
+  # These are just for convenience.
+  UTILITIES+=('unzip')
+  UTILITIES+=('wget')
+  # Distro specific needs.
+  if [ "$DISTRO" == 'fedora' ]
   then
-    printf "Homebrew found. No need to install.\n"
-  else
+    UTILITIES+=('util-linux-user')
+  fi
+fi
+
+# Initialize the array of utilities to install.
+INSTALL=()
+# Test wether the utilities are already installed and drop the ones that are.
+for UTILITY in ${UTILITIES[@]}
+do
+  if ! hash $UTILITY 2>/dev/null
+  then
+    INSTALL+=($UTILITY)
+  fi
+done
+
+# Utility installation on macOS.
+if [ "$OS" == "Darwin" ]
+then
+  # First install Homebrew if it's not found. We'll use brew to install other utilities on macOS.
+  if ! hash brew 2>/dev/null
+  then
+    # We will assume that the this script is run either privileged or interactive.
+    # In either case the default Homebrew installation script that uses sudo will work.
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   fi
-fi
+  # Install the required utilities with brew.
+  brew install -y ${INSTALL[*]}
 
-## GIT
-
-# Testing machines don't have git, so install it if it's not there.
-if hash git 2>/dev/null
+# Utility installation on Linux. Includes system update where needed.
+elif [ "$OS" == "Linux" ]
 then
-  GIT=""
-else
-  GIT="git"
-fi
-
-## UNZIP
-
-# We can assume we have unzip on OS X.
-if [ $OS = "Linux" ]
-then
-  if hash unzip 2>/dev/null
+  # Install packages with the package manager that is available.
+  if hash pacman 2>/dev/null
   then
-    UNZIP=""
+    sudo pacman -Syy --noconfirm
+    sudo pacman -S ${INSTALL[*]} --noconfirm
+  elif hash dnf 2>/dev/null
+  then
+    sudo dnf clean all && sudo dnf makecache timer
+    sudo dnf -y install ${INSTALL[*]}
+  elif hash yum 2>/dev/null
+  then
+    sudo yum clean all && sudo yum makecache fast
+    sudo yum -y install ${INSTALL[*]}
+  elif hash apt-get 2>/dev/null
+  then
+    sudo apt-get update
+    sudo apt-get --assume-yes install ${INSTALL[*]}
   else
-    UNZIP="unzip"
+    printf "None of predefined package managers (pacman, dnf, yum or apt-get) found. Aborting...\n"
+    exit 1
   fi
 fi
 
-## WGET
-
-# Let's make sure we have wget before we start.
-if [ $OS = "Linux" ]
+# Configure git.
+git config --global user.name "Aleksi Johansson"
+git config --global user.email "aleksi@aleksijohansson.net"
+# Use Keychain on macOS to store git credentials.
+if [ "$OS" == 'Darwin' ]
 then
-  # On Linux, save installation for later.
-  if hash wget 2>/dev/null
-  then
-    WGET=""
-  else
-    WGET="wget"
-  fi
-elif [ $OS = "Darwin" ]
-then
-  # Install wget straigt up with brew.
-  if hash wget 2>/dev/null
-  then
-    printf "wget found. No need to install.\n"
-  else
-    brew install -y wget
-  fi
+  git config --global credential.helper osxkeychain
 fi
 
-## ZSH
-
-# OS X comes with zsh, but most Linux distributions don't.
-if [ $OS = "Linux" ]
-then
-  if hash zsh 2>/dev/null
-  then
-    ZSH=""
-  else
-    ZSH="zsh"
-  fi
-fi
-
-# Do actual install on Linux.
-
-if [ $OS = "Linux" ]
-then
-
-  # First check if we have anything to install.
-  if [ -n "$WGET" ] || [ -n "$GIT" ] || [ -n "$ZSH" ] || [ -n "$UNZIP" ]
-  then
-    # Install packages with the package manager that is available.
-    if hash pacman 2>/dev/null
-    then
-      sudo pacman -S $WGET $GIT $ZSH $UNZIP --noconfirm
-    elif hash dnf 2>/dev/null
-    then
-      sudo dnf clean all && sudo dnf makecache timer
-      sudo dnf -y install $WGET $GIT $ZSH $UNZIP
-    elif hash yum 2>/dev/null
-    then
-      sudo yum clean all && sudo yum makecache fast
-      sudo yum -y install $WGET $GIT $ZSH $UNZIP
-    elif hash apt-get 2>/dev/null
-    then
-      sudo apt-get --assume-yes install $WGET $GIT $ZSH $UNZIP
-    else
-      printf "None of predefined package managers found. Aborting...\n"
-      exit 1
-    fi
-  fi
-
-fi
-
-## SHELL
-
-# Abort if we don't have zsh installed.
+# Change shell to zsh and install oh-my-zsh.
 if hash zsh 2>/dev/null
 then
   # Change shell to zsh.
@@ -127,109 +111,49 @@ then
   if [ ! -d "$HOME/.oh-my-zsh" ]
   then
     printf "Installing oh-my-zsh...\n"
-    git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+    git clone https://github.com/robbyrussell/oh-my-zsh.git "$HOME/.oh-my-zsh"
   fi
 else
-  printf "zsh required, but not installed. Aborting...\n"
+  printf "Shell zsh required, but not installed. Aborting...\n"
   exit 1
 fi
 
-## GIT
+# Get the enclosing folder of our script.
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-# Configure git.
-git config --global user.name "Aleksi Johansson"
-git config --global user.email "aleksi@aleksijohansson.net"
-if [ $OS = "Darwin" ]
+# Set the default installation folder for automated installations like vagrant testing and cloud-init
+# and make sure the folder exists.
+SOURCE="$HOME/Projects"
+if [ ! -d $SOURCE ]
 then
-  git config --global credential.helper osxkeychain
+  mkdir -p $SOURCE
 fi
 
-## DOTFILES
-
-# Install dotfiles.
-printf "Installing the dotfiles...\n"
-
-# @TODO: Maybe separate desktop (like Hyper) and server software here somehow. 
-
-# Get dotfiles if we don't have them. This is the case when provisioning with cloud-config and when testing with vagrant.
+# Get the whole project if we don't have it. This is the case when provisioning with cloud-init and when testing with vagrant.
 if [ ! -d "$DIR/dotfiles" ]
 then
   printf "Getting the source...\n"
   DIR="$SOURCE/host-setup"
-  git clone https://github.com/aleksijohansson/host-setup.git "$DIR"
-  # Change the working directory to the project folder.
-  cd "$DIR"
+  git clone https://github.com/aleksijohansson/host-setup.git $DIR
 fi
 
-# Handle each dotfile individually.
-for FILE in $DIR/dotfiles/*
-do
+# Run different scripts wether the host has GUI or not.
+if [ -z ${1+x} ]
+then
+  # No argument given, so run the default case without GUI.
+  printf "Running the host-setup for a host without a GUI. Please give environment 'gui' as an argument to the script if you want to run additional GUI app setup.\n"
+  # Run a collection of scripts for non-GUI host.
+  source "$DIR/dotfiles.sh"
 
-  # Make sure we actually have a file to work with.
-  if [ -f $FILE ]
-  then
+elif [ "$1" == 'gui' ]
+then
+  # Run also app-install.sh for GUI host.
+  printf "Running the host-setup for a host with a GUI.\n"
+  # Run a collection of scripts for non-GUI host.
+  source "$DIR/dotfiles.sh"
+  source "$DIR/gui-app-install.sh"
 
-    IFS='/' read -r -a DOTFILES <<< "$FILE"
-    for i in "${DOTFILES[@]}"
-    do
-      # FILENAME gets overridden for each item and settle for the last one which is our filename.
-      FILENAME=$i
-    done
-
-    # Format the dotfile.
-    DOTFILE=~/.$FILENAME
-
-    # Backup any existing dotfiles.
-    if [ -f $DOTFILE ] && [ ! -L $DOTFILE ]
-    then
-      printf "Existing dot file ($DOTFILE) found, backing up...\n"
-      mv $DOTFILE ${DOTFILE}_bak
-    fi
-    # Symlink the dotfile into place.
-    printf "Installing dot file ($DOTFILE)...\n"
-    ln -vsf $FILE $DOTFILE
-
-  fi
-
-done
-
-## SSH config.
-# TODO: Change this to work more generally in the above for loop.
-printf "Installing SSH config...\n"
-ln -vsf "$DIR/dotfiles/ssh/config" ~/.ssh/config
-
-# Handle each app individually.
-# TODO: Using sudo here which makes the tests fail. Fix it.
-for FILE in $DIR/apps/*
-do
-
-  # Make sure we actually have a file to work with.
-  if [ -f $FILE ]
-  then
-
-    IFS='/' read -r -a APPS <<< "$FILE"
-    for i in "${APPS[@]}"
-    do
-      # FILENAME gets overridden for each item and settle for the last one which is our filename.
-      FILENAME=$i
-    done
-
-    # Format the app.
-    APP=/usr/local/bin/$FILENAME
-
-    # Backup any existing app files.
-    if [ -f $APP ] && [ ! -L $APP ]
-    then
-      printf "Existing app file ($APP) found, backing up...\n"
-      sudo mv $APP ${APP}_bak
-    fi
-    # Symlink the app files into place.
-    printf "Installing app file ($APP)...\n"
-    sudo ln -vsf $FILE $APP
-
-  fi
-
-done
-
-
-printf "Done.\n"
+else
+  # If argument is unknow, only alert the user.
+  printf "Unknown argument. Run the script without arguments or with 'gui' argument if you want to setup a host with GUI.\n"
+fi
