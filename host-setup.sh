@@ -8,6 +8,10 @@
 OS="$(uname)"
 ARC="$(uname -m)"
 
+# This should give us $ID variable with the name of the distro on it.
+source /etc/os-release
+DISTRO=$ID
+
 # @TODO: Maybe change the shell of all users on the system for a consistent workflow?
 # @TODO: Maybe setup the global zshrc at /etc/zsh/zshrc? See more info https://wiki.archlinux.org/index.php/zsh and https://github.com/robbyrussell/oh-my-zsh#advanced-installation
 
@@ -32,7 +36,11 @@ then
   # These are just for convenience.
   UTILITIES+=('unzip')
   UTILITIES+=('wget')
-
+  # Distro specific needs.
+  if [ "$DISTRO" == 'fedora' ]
+  then
+    UTILITIES+=('util-linux-user')
+  fi
 fi
 
 # Initialize the array of utilities to install.
