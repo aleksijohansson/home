@@ -36,10 +36,6 @@ Requirements:
 *Note: In order to test macOS provisioning with vagrant, your development host machine needs to be macOS.*
 
 ## Upcoming features
-- macOS fixes:
-  - `./host-setup.sh: line 12: /etc/os-release: No such file or directory`
-- Make sure package installation is not tried if not needed.
-- Make sure shell change is not done again if not needed.
 - Fix situations where package name doesn't match utility name and reinstall is tried.
 - gui-app-install.sh script with commonly used apps.
 - container-app-install.sh script with at least one containerized utility to use.

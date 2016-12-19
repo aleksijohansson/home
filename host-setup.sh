@@ -121,8 +121,11 @@ fi
 # Change shell to zsh and install oh-my-zsh.
 if hash zsh 2>/dev/null
 then
-  # Change shell to zsh.
-  sudo chsh -s /bin/zsh $USER
+  # Change shell to zsh, only if needed.
+  if [[ $SHELL != *zsh ]]
+  then
+    sudo chsh -s /bin/zsh $USER
+  fi
   # Install oh-my-zsh.
   if [ ! -d "$HOME/.oh-my-zsh" ]
   then
