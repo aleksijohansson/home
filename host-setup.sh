@@ -9,8 +9,24 @@ OS="$(uname)"
 ARC="$(uname -m)"
 
 # This should give us $ID variable with the name of the distro on it.
-source /etc/os-release
-DISTRO=$ID
+if [ "$OS" == 'Darwin' ]
+then
+  # Let's consider macOS major version comparable to Linux distro.
+  # Manually set the codename from the version number starting from sierra.
+  VER="$(sw_vers -productVersion)"
+  if [[ $VER == 10.12* ]]
+  then
+    DISTRO='sierra'
+  else
+    DISTRO='unknow'
+  fi
+elif [ "$OS" == 'Linux' ]
+then
+  source /etc/os-release
+  DISTRO=$ID
+else
+  DISTRO='unknow'
+fi
 
 # @TODO: Maybe change the shell of all users on the system for a consistent workflow?
 # @TODO: Maybe setup the global zshrc at /etc/zsh/zshrc? See more info https://wiki.archlinux.org/index.php/zsh and https://github.com/robbyrussell/oh-my-zsh#advanced-installation
