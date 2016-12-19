@@ -13,6 +13,7 @@ Includes the following scripts:
 - gui-app-install.sh:
   - Installation of commonly used apps with a GUI on a laptop or desktop.
   - macOS and Arch Linux only.
+  - Unfinished, doesn't do anything.
 
 The scripts are just plain bash scripts at least for now because the industry standard cloud-init project is not available on macOS.
 
@@ -35,6 +36,7 @@ Requirements:
 *Note: In order to test macOS provisioning with vagrant, your development host machine needs to be macOS.*
 
 ## Upcoming features
+- gui-app-install.sh script with commonly used apps.
 - container-app-install.sh script with at least one containerized utility to use.
 - Include Linux kernel firewall and macOS firewall setup.
   - Not sure if enabling macOS firewall can be scripted.
