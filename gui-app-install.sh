@@ -21,12 +21,14 @@ macos+=('vagrant')
 # Homebrew casks separated to their own list.
 macos_casks+=('insomnia')
 macos_casks+=('sequel-pro')
+macos_casks+=('vlc')
 
 # List of Arch Linux packages to install including packages from AUR in alphabetical order.
 # A package per line so that changes are easy to diff with git.
 arch+=('ansible')
-arch+=('vagrant')
 arch+=('insomnia')
+arch+=('vagrant')
+arch+=('vlc')
 
 # Test of the arrays.
 printf "List of macOS apps to install: ${macos[*]}\n"
