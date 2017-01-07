@@ -22,7 +22,6 @@ macos+=('vagrant')
 macos_casks+=('insomnia')
 macos_casks+=('sequel-pro')
 macos_casks+=('vlc')
-macos_casks+=('qt4') # For vlc GUI
 
 # List of Arch Linux packages to install including packages from AUR in alphabetical order.
 # A package per line so that changes are easy to diff with git.
@@ -30,6 +29,7 @@ arch+=('ansible')
 arch+=('insomnia')
 arch+=('vagrant')
 arch+=('vlc')
+arch+=('qt4') # For vlc GUI
 
 # Test of the arrays.
 printf "List of macOS apps to install: ${macos[*]}\n"
