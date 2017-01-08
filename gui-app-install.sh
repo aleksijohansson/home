@@ -30,6 +30,7 @@ arch+=('ansible')
 arch+=('insomnia')
 arch+=('vagrant')
 arch+=('vlc')
+arch+=('qt4') # For vlc GUI
 
 # Test of the arrays.
 printf "List of macOS apps to install: ${macos[*]}\n"

@@ -42,7 +42,7 @@ link_dotfile() {
     # Check if filename starts with the excluded file or folder.
     if [[ $FILENAME == $EXC* ]]
     then
-      printf "Dotfile $FILENAME excluded on $OS.\n"
+      printf "Dotfile $FILENAME excluded because of operating system $OS or because no 'gui' was given as argument.\n"
       EXCLUDE=true
     fi
   done
