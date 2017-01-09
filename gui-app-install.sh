@@ -19,6 +19,7 @@ arch=()
 macos+=('ansible')
 macos+=('vagrant')
 # Homebrew casks separated to their own list.
+macos_casks+=('gitkraken')
 macos_casks+=('insomnia')
 macos_casks+=('sequel-pro')
 macos_casks+=('tuxera-ntfs')
@@ -27,6 +28,7 @@ macos_casks+=('vlc')
 # List of Arch Linux packages to install including packages from AUR in alphabetical order.
 # A package per line so that changes are easy to diff with git.
 arch+=('ansible')
+arch+=('gitkraken')
 arch+=('insomnia')
 arch+=('vagrant')
 arch+=('vlc')
