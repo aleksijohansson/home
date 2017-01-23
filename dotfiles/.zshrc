@@ -93,6 +93,7 @@ fi
 
 # Ansible Vault
 export WT_ANSIBLE_VAULT_FILE="~/.WT_ANSIBLE_VAULT_FILE"
+export ANSIBLE_VAULT_PASSWORD_FILE="~/.WT_ANSIBLE_VAULT_FILE"
 
 # Kontena CLI
 # export SSL_IGNORE_ERRORS=true

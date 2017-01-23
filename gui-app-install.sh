@@ -10,13 +10,17 @@ ARC="$(uname -m)"
 # Commonly used apps to install.
 # Arrays of package names defined per distribution/operating system because they may differ.
 # First we define the arrays as separate arrays because bash doesn't support multidimensional arrays (arrays inside arrays).
+macos_taps=()
 macos=()
 macos_casks=()
 arch=()
 
+# List of additional Homebrew taps.
+macos_taps+=('drone/drone')
 # List of macOS packages to install with Homebrew in alphabetical order.
 # A package per line so that changes are easy to diff with git.
 macos+=('ansible')
+macos+=('drone')
 macos+=('vagrant')
 # Homebrew casks separated to their own list.
 macos_casks+=('gitkraken')
