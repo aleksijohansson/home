@@ -72,6 +72,8 @@ do
   fi
 done
 
+# @TODO: Add a check here to not run the install if there is nothing to install.
+
 # Utility installation on macOS.
 if [ "$OS" == "Darwin" ]
 then
