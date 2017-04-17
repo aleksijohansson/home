@@ -42,6 +42,7 @@ then
   # These are needed by the setup.
   UTILITIES+=('coreutils')
   # These are just for convenience.
+  UTILITIES+=('screen')
   UTILITIES+=('wget')
 elif [ "$OS" == 'Linux' ]
 # Linux utility requirements.
@@ -50,6 +51,7 @@ then
   UTILITIES+=('git')
   UTILITIES+=('zsh')
   # These are just for convenience.
+  UTILITIES+=('screen')
   UTILITIES+=('unzip')
   UTILITIES+=('wget')
   # Distro specific needs.
