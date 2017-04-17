@@ -20,10 +20,11 @@ DOTFILES_DIR="dotfiles"
 EXCLUDES=()
 if [ "$OS" == 'Darwin' ]
 then
-  EXCLUDES=() # No excludes on Darwin at the moment.
+  EXCLUDES+=('.ssh/config.d/linux') # Exclude the Linux SSH config file.
 elif [ "$OS" == 'Linux' ]
 then
   EXCLUDES+=('Library') # Exclude the Library folder and anything on it.
+  EXCLUDES+=('.ssh/config.d/macos') # Exclude the macOS SSH config file.
 fi
 if [ "$1" != 'gui' ]
 then
