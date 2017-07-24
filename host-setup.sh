@@ -41,6 +41,7 @@ if [ "$OS" == 'Darwin' ]
 then
   # These are needed by the setup.
   UTILITIES+=('coreutils')
+  UTILITIES+=('nodejs') # Include npm.
   # These are just for convenience.
   UTILITIES+=('screen')
   UTILITIES+=('wget')
@@ -49,6 +50,8 @@ elif [ "$OS" == 'Linux' ]
 then
   # These are needed by the setup.
   UTILITIES+=('git')
+  UTILITIES+=('nodejs')
+  UTILITIES+=('npm')
   UTILITIES+=('zsh')
   # These are just for convenience.
   UTILITIES+=('screen')
