@@ -14,6 +14,7 @@ macos_taps=()
 macos=()
 macos_casks=()
 arch=()
+vagrant=()
 
 # List of additional Homebrew taps.
 macos_taps+=('drone/drone')
@@ -21,14 +22,45 @@ macos_taps+=('drone/drone')
 # A package per line so that changes are easy to diff with git.
 macos+=('ansible')
 macos+=('drone')
-macos+=('vagrant')
 # Homebrew casks separated to their own list.
+macos_casks+=('atom')
+macos_casks+=('cleanmymac')
 macos_casks+=('gitkraken')
+macos_casks+=('google-chrome')
+macos_casks+=('harvest')
+macos_casks+=('hyper')
 macos_casks+=('insomnia')
 macos_casks+=('sequel-pro')
+macos_casks+=('slack')
+macos_casks+=('spectacle')
+macos_casks+=('spotify')
 macos_casks+=('telegram-desktop')
 macos_casks+=('tuxera-ntfs')
+macos_casks+=('vagrant')
+macos_casks+=('virtualbox')
+macos_casks+=('virtualbox-extension-pack')
 macos_casks+=('vlc')
+macos_casks+=('vyprvpn')
+macos_casks+=('vyprvpn')
+macos_casks+=('zoomus')
+
+# Apps to install Mac App Store manually.
+# - Amphetamine
+# - Gifox
+# - iMovie
+# - Keynote
+# - Numbers
+# - Pages
+# - Paste (because it was bought there)
+# - Xcode
+
+# Apps worth checking out.
+# - https://www.macbartender.com/
+# -
+
+# List of Vagrant plugins to install.
+vagrant+=('vagrant-hostmanager')
+vagrant+=('vagrant-cachier')
 
 # List of Arch Linux packages to install including packages from AUR in alphabetical order.
 # A package per line so that changes are easy to diff with git.
@@ -42,4 +74,6 @@ arch+=('qt4') # For vlc GUI
 
 # Test of the arrays.
 printf "List of macOS apps to install: ${macos[*]}\n"
+printf "List of macOS gui apps to install: ${macos_casks[*]}\n"
+printf "List of Vagrant plugins to install: ${vagrant[*]}\n"
 printf "List of Arch Linux apps to install: ${arch[*]}\n"
