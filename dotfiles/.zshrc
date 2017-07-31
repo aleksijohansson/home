@@ -68,6 +68,9 @@ then
   alias ls='ls --color=auto'
 fi
 
+# Python from brew
+export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+
 # rbenv
 export PATH="$HOME/.rbenv/bin:$PATH"
 if hash rbenv 2>/dev/null
