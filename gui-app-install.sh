@@ -14,6 +14,7 @@ macos_taps=()
 macos=()
 macos_casks=()
 arch=()
+ruby=()
 vagrant=()
 
 # List of additional Homebrew taps.
@@ -22,6 +23,7 @@ macos_taps+=('drone/drone')
 # A package per line so that changes are easy to diff with git.
 macos+=('ansible')
 macos+=('drone')
+macos+=('rbenv')
 # Homebrew casks separated to their own list.
 macos_casks+=('atom')
 macos_casks+=('cleanmymac')
@@ -67,10 +69,14 @@ vagrant+=('vagrant-cachier')
 arch+=('ansible')
 arch+=('gitkraken')
 arch+=('insomnia')
+arch+=('rbenv')
 arch+=('telegram-desktop-bin')
 arch+=('vagrant')
 arch+=('vlc')
 arch+=('qt4') # For vlc GUI
+
+# List Ruby versions to install and configure.
+ruby+=('2.4.1')
 
 # Test of the arrays.
 printf "List of macOS apps to install: ${macos[*]}\n"
