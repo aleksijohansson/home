@@ -14,7 +14,8 @@ macos_taps=()
 macos=()
 macos_casks=()
 arch=()
-ruby=()
+npm=()
+rbenv=()
 vagrant=()
 
 # List of additional Homebrew taps.
@@ -75,8 +76,11 @@ arch+=('vagrant')
 arch+=('vlc')
 arch+=('qt4') # For vlc GUI
 
-# List Ruby versions to install and configure.
-ruby+=('2.4.1')
+# List of Ruby versions to install and configure.
+rbenv+=('2.4.1')
+
+# List of global npm packages to install with -g flag.
+npm+=('gulp-cli')
 
 # Test of the arrays.
 printf "List of macOS apps to install: ${macos[*]}\n"
