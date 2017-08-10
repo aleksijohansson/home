@@ -144,10 +144,6 @@ else
   exit 1
 fi
 
-# Prepare SSH for configuration.
-# Make sure the `controlmasters` folder exists.
-mkdir -p ~/.ssh/controlmasters
-
 # Get the enclosing folder of our script.
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
