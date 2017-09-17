@@ -3,37 +3,22 @@
 # Script to setup shared consistent shell and shell utility configuration.
 # Supports all operating systems defined in the project documentation.
 # Requirements for independent use:
-# - ./dotfiles folder relative to the script including the dotfiles you want to setup.
+# - ./dotfiles_config.sh relative to the script for config.
 # - Use argument 'gui' to setup also GUI app configs.
 
 # Get OS and architecture to do OS specific actions.
-OS="$(uname)"
-ARC="$(uname -m)"
+OS=`uname`
+ARC=`uname -m`
 
 # Get the enclosing folder of our script.
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+DIR=`cd $( dirname "${BASH_SOURCE[0]}" ) && pwd`
 
-# Set the actual dotfiles folder here so that it can be easily changed.
-DOTFILES_DIR="dotfiles"
-
-# Exclude certain dotfiles on based on $OS and 'gui' argument.
-EXCLUDES=()
-if [ "$OS" == 'Darwin' ]
-then
-  EXCLUDES+=('.ssh/config.d/linux') # Exclude the Linux SSH config file.
-elif [ "$OS" == 'Linux' ]
-then
-  EXCLUDES+=('Library') # Exclude the Library folder and anything on it.
-  EXCLUDES+=('.ssh/config.d/macos') # Exclude the macOS SSH config file.
-fi
-if [ "$1" != 'gui' ]
-then
-  EXCLUDES+=('.hyper.js') # Hyper is GUI only, exclude the config.
-fi
+# Get the config.
+. "$DIR/dotfiles_config.sh"
 
 # Dotfile handler function.
 link_dotfile() {
-  FILENAME="$( realpath --relative-to="$DIR/$DOTFILES_DIR" $1 )"
+  FILENAME=`realpath --relative-to="$DIR/$DOTFILES_DIR" $1`
 
   # Only remove if excluded.
   EXCLUDE=false
@@ -91,6 +76,20 @@ iterate_dotfiles() {
   done
 }
 
+# Function to iterate over local only files and generate them.
+localonly_dotfiles() {
+  for ITEM in "${LOCALONLY[@]}"
+  do
+    # Only generate files that don't exist.
+    if [ ! -f "$HOME/$ITEM" ]
+    then
+      # Generate the file and ask for content.
+      read -p "Generating $ITEM, what should it be? " INPUT
+      echo "$INPUT" > "$HOME/$ITEM"
+    fi
+  done
+}
+
 # Change bash dot handling so that using * includes hidden files.
 shopt -s dotglob
 
@@ -99,3 +98,6 @@ iterate_dotfiles "$DIR/$DOTFILES_DIR"
 
 # Change bash dot handling back to the way it was.
 shopt -u dotglob
+
+# Generate the local only files and ask for their content.
+localonly_dotfiles
