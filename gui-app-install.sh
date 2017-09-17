@@ -14,16 +14,18 @@ macos_taps=()
 macos=()
 macos_casks=()
 arch=()
+arch_pip=()
 npm=()
 rbenv=()
 vagrant=()
+macos_pip=()
 
 # List of additional Homebrew taps.
 macos_taps+=('drone/drone')
 # List of macOS packages to install with Homebrew in alphabetical order.
 # A package per line so that changes are easy to diff with git.
-macos+=('ansible')
 macos+=('drone')
+macos+=('jq')
 macos+=('rbenv')
 # Homebrew casks separated to their own list.
 macos_casks+=('atom')
@@ -47,6 +49,10 @@ macos_casks+=('vyprvpn')
 macos_casks+=('vyprvpn')
 macos_casks+=('zoomus')
 
+# Some apps are better to install from pip on macOS
+macos_pip+=('ansible')
+macos_pip+=('dopy')
+
 # Apps to install Mac App Store manually.
 # - Amphetamine
 # - Gifox
@@ -57,10 +63,6 @@ macos_casks+=('zoomus')
 # - Paste (because it was bought there)
 # - Xcode
 
-# Apps worth checking out.
-# - https://www.macbartender.com/
-# -
-
 # List of Vagrant plugins to install.
 vagrant+=('vagrant-hostmanager')
 vagrant+=('vagrant-cachier')
@@ -70,11 +72,15 @@ vagrant+=('vagrant-cachier')
 arch+=('ansible')
 arch+=('gitkraken')
 arch+=('insomnia')
+arch+=('jq')
 arch+=('rbenv')
 arch+=('telegram-desktop-bin')
 arch+=('vagrant')
 arch+=('vlc')
 arch+=('qt4') # For vlc GUI
+
+# Arch stuff from Pip too.
+arch_pip+=('dopy')
 
 # List of Ruby versions to install and configure.
 rbenv+=('2.4.1')
