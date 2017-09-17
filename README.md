@@ -22,7 +22,7 @@ One can easily take advantage of the scripts to their own needs.
 
 The scripts can be run like any other scripts on the host:
 ~~~
-./shell-setup.sh
+./host-setup.sh
 ~~~
 
 One universally useful script is the `dotfiles.sh` script that iterates over the files in the dotfiles directory which matches the local users home directory and symlinks the files from the dotfiles folder to the local users home folder. This allows using a consistent and easily updatable configuration across hosts.
