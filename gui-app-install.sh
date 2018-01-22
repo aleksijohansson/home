@@ -29,6 +29,7 @@ macos+=('jq')
 macos+=('rbenv')
 # Homebrew casks separated to their own list.
 macos_casks+=('atom')
+macos_casks+=('direnv')
 macos_casks+=('cleanmymac')
 macos_casks+=('gitkraken')
 macos_casks+=('google-chrome')
@@ -52,6 +53,8 @@ macos_casks+=('zoomus')
 # Some apps are better to install from pip on macOS
 macos_pip+=('ansible')
 macos_pip+=('dopy')
+macos_pip+=('virtualenv')
+macos_pip+=('virtualenvwrapper')
 
 # Apps to install Mac App Store manually.
 # - Amphetamine
@@ -70,6 +73,7 @@ vagrant+=('vagrant-cachier')
 # List of Arch Linux packages to install including packages from AUR in alphabetical order.
 # A package per line so that changes are easy to diff with git.
 arch+=('ansible')
+arch+=('autoenv')
 arch+=('gitkraken')
 arch+=('insomnia')
 arch+=('jq')
@@ -81,6 +85,8 @@ arch+=('qt4') # For vlc GUI
 
 # Arch stuff from Pip too.
 arch_pip+=('dopy')
+arch_pip+=('virtualenv')
+arch_pip+=('virtualenvwrapper')
 
 # List of Ruby versions to install and configure.
 rbenv+=('2.4.1')

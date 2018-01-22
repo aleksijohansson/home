@@ -10,6 +10,7 @@ if [ -z ${VAGRANT_INSTALLER_ENV+x} ]; then
   if [ -z ${OP_SESSION_my+x} ]; then
     # Get the secret key from local file.
     SECRET=`cat $HOME/.op-secret`
+    # @TODO: Is eval really needed here? Would this work with vagrant without?
     eval $(op signin my.1password.com aleksi.johansson@icloud.com "$SECRET")
   fi
   # Get the password with the name of the current project folder.

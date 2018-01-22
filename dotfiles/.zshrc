@@ -94,6 +94,13 @@ then
   # export PATH="$PATH:/usr/local/sbin"
 fi
 
+# Python virtualenvwrapper.sh and autoenv config
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/Projects
+source /usr/local/bin/virtualenvwrapper.sh
+source $(brew --prefix autoenv)/activate.sh
+export AUTOENV_ENABLE_LEAVE="Yes"
+
 # Ansible Vault
 export WT_ANSIBLE_VAULT_FILE="$HOME/.WT_ANSIBLE_VAULT_FILE"
 export ANSIBLE_VAULT_PASSWORD_FILE="$HOME/.op.sh"
