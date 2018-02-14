@@ -46,11 +46,8 @@ macos_casks+=('virtualbox-extension-pack')
 macos_casks+=('vyprvpn')
 macos_casks+=('zoomus')
 
-# Some apps are better to install from pip on macOS
+# Some apps are better to install from pip on macOS. Make sure pyenv and proper Python version is installed first.
 macos_pip+=('ansible')
-macos_pip+=('dopy')
-macos_pip+=('virtualenv')
-macos_pip+=('virtualenvwrapper')
 
 # Apps to install Mac App Store manually.
 # - Amphetamine
@@ -82,11 +79,6 @@ arch+=('telegram-desktop-bin')
 arch+=('vagrant')
 arch+=('vlc')
 arch+=('qt4') # For vlc GUI
-
-# Arch stuff from Pip too.
-arch_pip+=('dopy')
-arch_pip+=('virtualenv')
-arch_pip+=('virtualenvwrapper')
 
 # List of Ruby versions to install and configure.
 rbenv+=('2.4.1')
