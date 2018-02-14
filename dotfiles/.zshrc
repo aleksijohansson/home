@@ -68,14 +68,16 @@ then
   alias ls='ls --color=auto'
 fi
 
-# Python from brew
-export PATH="/usr/local/opt/python/libexec/bin:$PATH"
-
 # rbenv
 export PATH="$HOME/.rbenv/bin:$PATH"
 if hash rbenv 2>/dev/null
 then
   eval "$(rbenv init -)"
+fi
+
+# pyenv
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
 fi
 
 # Go
@@ -93,12 +95,6 @@ if [ $OS = "Darwin" ]
 then
   # export PATH="$PATH:/usr/local/sbin"
 fi
-
-# Python virtualenvwrapper.sh and autoenv config
-export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/Projects
-source /usr/local/bin/virtualenvwrapper.sh
-source $(brew --prefix autoenv)/activate.sh
 
 # Ansible Vault
 export WT_ANSIBLE_VAULT_FILE="$HOME/.WT_ANSIBLE_VAULT_FILE"
@@ -126,7 +122,8 @@ then
 fi
 
 # You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
