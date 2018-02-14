@@ -20,33 +20,29 @@ rbenv=()
 vagrant=()
 macos_pip=()
 
-# List of additional Homebrew taps.
-macos_taps+=('drone/drone')
 # List of macOS packages to install with Homebrew in alphabetical order.
 # A package per line so that changes are easy to diff with git.
-macos+=('drone')
 macos+=('jq')
+macos+=('pyenv')
 macos+=('rbenv')
 # Homebrew casks separated to their own list.
+macos_casks+=('1password')
+macos_casks+=('1password-cli')
 macos_casks+=('atom')
-macos_casks+=('direnv')
 macos_casks+=('cleanmymac')
-macos_casks+=('gitkraken')
+macos_casks+=('docker')
 macos_casks+=('google-chrome')
 macos_casks+=('harvest')
-macos_casks+=('hyper')
-macos_casks+=('insomnia')
+macos_casks+=('postman')
+macos_casks+=('screaming-frog-seo-spider')
 macos_casks+=('sequel-pro')
 macos_casks+=('slack')
-macos_casks+=('spectacle')
 macos_casks+=('spotify')
 macos_casks+=('telegram-desktop')
 macos_casks+=('tuxera-ntfs')
 macos_casks+=('vagrant')
 macos_casks+=('virtualbox')
 macos_casks+=('virtualbox-extension-pack')
-macos_casks+=('vlc')
-macos_casks+=('vyprvpn')
 macos_casks+=('vyprvpn')
 macos_casks+=('zoomus')
 
@@ -61,10 +57,15 @@ macos_pip+=('virtualenvwrapper')
 # - Gifox
 # - iMovie
 # - Keynote
+# - Magnet
 # - Numbers
 # - Pages
 # - Paste (because it was bought there)
 # - Xcode
+
+# Apps to install manually
+# - Logitech Options
+# - Endpoint Security for Mac (Bitdefender)
 
 # List of Vagrant plugins to install.
 vagrant+=('vagrant-hostmanager')
@@ -73,10 +74,9 @@ vagrant+=('vagrant-cachier')
 # List of Arch Linux packages to install including packages from AUR in alphabetical order.
 # A package per line so that changes are easy to diff with git.
 arch+=('ansible')
-arch+=('autoenv')
-arch+=('gitkraken')
-arch+=('insomnia')
+arch+=('pyenv')
 arch+=('jq')
+arch+=('postman-bin')
 arch+=('rbenv')
 arch+=('telegram-desktop-bin')
 arch+=('vagrant')
