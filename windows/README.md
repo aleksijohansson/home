@@ -4,11 +4,12 @@
 
 Manually download and install the basics:
 - Lando https://github.com/lando/lando/releases
-  - This will install also Docker for Windows and Git for Windows
+  - This will install also Docker for Windows and Git for Windows.
 - Atom https://atom.io
 - Vim https://github.com/vim/vim-win32-installer/releases
   - See below for screenshots about the options during installation.
 - Hyper https://hyper.is
+- Comfort Clipboard Pro http://www.comfort-software.com/downloads.html
 
 ### Vim
 
