@@ -6,7 +6,7 @@ module.exports = {
   config: {
     // Choose either "stable" for receiving highly polished,
     // or "canary" for less polished but more frequent updates
-    updateChannel: 'canary',
+    updateChannel: 'stable',
 
     // default font size in pixels for all tabs
     fontSize: 14,
@@ -15,7 +15,7 @@ module.exports = {
     fontFamily: 'Menlo, "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
 
     // terminal cursor background color and opacity (hex, rgb, hsl, hsv, hwb or cmyk)
-    cursorColor: '#b294bb',
+    cursorColor: '#fa6800',
 
     // `BEAM` for |, `UNDERLINE` for _, `BLOCK` for █
     cursorShape: 'BLOCK',
@@ -27,7 +27,7 @@ module.exports = {
     foregroundColor: '#c5c8c6',
 
     // terminal background color
-    backgroundColor: '#1d1f21',
+    backgroundColor: '#000',
 
     // border color (window, tabs)
     borderColor: '#161719',
