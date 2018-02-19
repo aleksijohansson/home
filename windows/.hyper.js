@@ -120,7 +120,6 @@ module.exports = {
   //   `hyperpower`
   //   `@company/project`
   //   `project#1.0.1`
-  // TODO: Maybe "hyper-quit" too?
   plugins: ["hyperterm-tabs", "hyper-tabs-enhanced"],
 
   // in development, you can create a directory under
