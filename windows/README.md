@@ -10,6 +10,7 @@ Manually download and install the basics:
   - See below for screenshots about the options during installation.
 - Hyper https://hyper.is
 - Comfort Clipboard Pro http://www.comfort-software.com/downloads.html
+- TickTick https://ticktick.com/
 
 ### Vim
 

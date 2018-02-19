@@ -10,15 +10,13 @@ ARC="$(uname -m)"
 # Commonly used apps to install.
 # Arrays of package names defined per distribution/operating system because they may differ.
 # First we define the arrays as separate arrays because bash doesn't support multidimensional arrays (arrays inside arrays).
-macos_taps=()
 macos=()
 macos_casks=()
+macos_pip=()
 arch=()
-arch_pip=()
 npm=()
 rbenv=()
 vagrant=()
-macos_pip=()
 
 # List of macOS packages to install with Homebrew in alphabetical order.
 # A package per line so that changes are easy to diff with git.
@@ -58,15 +56,12 @@ macos_pip+=('ansible')
 # - Numbers
 # - Pages
 # - Paste (because it was bought there)
+# - TickTick
 # - Xcode
 
 # Apps to install manually
 # - Logitech Options
 # - Endpoint Security for Mac (Bitdefender)
-
-# List of Vagrant plugins to install.
-vagrant+=('vagrant-hostmanager')
-vagrant+=('vagrant-cachier')
 
 # List of Arch Linux packages to install including packages from AUR in alphabetical order.
 # A package per line so that changes are easy to diff with git.
@@ -86,6 +81,10 @@ rbenv+=('2.4.1')
 # List of global npm packages to install with -g flag.
 npm+=('gulp-cli')
 npm+=('hpm-cli')
+
+# List of Vagrant plugins to install.
+vagrant+=('vagrant-hostmanager')
+vagrant+=('vagrant-cachier')
 
 # Test of the arrays.
 printf "List of macOS apps to install: ${macos[*]}\n"
