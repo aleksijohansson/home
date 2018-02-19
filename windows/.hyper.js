@@ -121,9 +121,7 @@ module.exports = {
   //   `@company/project`
   //   `project#1.0.1`
   // TODO: Maybe "hyper-quit" too?
-  plugins: [
-    plugins: ["hyperterm-tabs", "hyper-tabs-enhanced"],
-  ],
+  plugins: ["hyperterm-tabs", "hyper-tabs-enhanced"],
 
   // in development, you can create a directory under
   // `~/.hyper_plugins/local/` and include it here
