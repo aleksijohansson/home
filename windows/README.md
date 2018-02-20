@@ -65,6 +65,14 @@ vim $env:HOMEPATH}\.ssh\id_ed25519.pub
 ssh-add $env:HOMEPATH\.ssh\id_ed25519
 ```
 
+### Atom
+
+There is some custom keymapping to use ctrl for tab switching instead of alt. Symlink that into place. This needs an elevated Hyper again.
+
+```
+New-Item -Path $env:HOMEPATH\.atom\keymap.cson -ItemType SymbolicLink -Value $env:HOMEPATH\Projects\host-setup\windows\keymap.cson
+```
+
 ## Tips
 
 Here's some tips that came up:
