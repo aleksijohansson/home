@@ -84,7 +84,7 @@ module.exports = {
     //
     // Powershell on Windows
     // - Example: `C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe`
-    shell: 'C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe',
+    shell: 'C:\\Windows\\System32\\wsl.exe',
 
     // for setting shell arguments (i.e. for using interactive shellArgs: ['-i'])
     // by default ['--login'] will be used
@@ -109,9 +109,10 @@ module.exports = {
     // for advanced config flags please refer to https://hyper.is/#cfg
 
     // Configuration for hyper-tabs-enhanced plugin.
-    hyperTabs: {
-      tabIconsColored: true,
-    },
+    // TODO: Enable this with the module.
+    // hyperTabs: {
+    //   tabIconsColored: true,
+    // },
   },
 
   // a list of plugins to fetch and install from npm
