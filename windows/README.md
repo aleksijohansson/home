@@ -1,33 +1,53 @@
 # Manual environment setup on Windows 10
 
+## Enable required Windows features
+
+Enable developer mode to be able to create symbolic links without an elevated prompt. You can do this by opening Windows Settings > Update & Security > For developers and select Developer mode.
+
+Enable Hyper-V for Lando. Start a command prompt (cmd.exe) as an administrator and run:
+
+```powershell
+DISM /Online /Enable-Feature /All /FeatureName:Microsoft-Hyper-V
+```
+
+Enable Windows Subsystem for Linux (https://docs.microsoft.com/en-us/windows/wsl/install-win10) by running Powershell as an administrator and running:
+
+```powershell
+Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
+```
+
+After that install Ubuntu from Microsoft Store and launch it to set it up. Use the same username as is your Windows username (visible from the C:\Users\username folder on the machine). This will help to use the same home folder on both Windows and Linux for shared ssh and git config.
+
 ## Install the basics and clone this repo
 
 Manually download and install the basics:
+- Docker for Windows https://store.docker.com/editions/community/docker-ce-desktop-windows
+- Git for Windows https://git-scm.com/downloads
+  - See [Git](#git) section below for screenshots of installation options.
+  - For setting up the authentication keys see [SSH on Windows](#sshonwindows) section below.
 - Lando https://github.com/lando/lando/releases
-  - This will install also Docker for Windows and Git for Windows.
-- Atom https://atom.io
-- Vim https://github.com/vim/vim-win32-installer/releases
-  - See below for screenshots about the options during installation.
+  - Lando requires the two above and might try to install them. You can keep the versions you have.
+- Microsoft Visual Studio Code https://code.visualstudio.com
 - Hyper https://hyper.is
 - Comfort Clipboard Pro http://www.comfort-software.com/downloads.html
-- TickTick https://ticktick.com/
+- TickTick https://ticktick.com
+- Firefox https://www.mozilla.org/en-US/firefox
+- 7-Zip http://www.7-zip.org
 
-### Vim
+### <a name="git"></a>Git
 
-Select these options during the installation:
+![Git Install Options 1](git_1.png "Git Install Options 1")
 
-![Vim Setup Options Part 1](vim_setup_options1.png "Vim Setup Options Part 1")
+![Git Install Options 2](git_2.png "Git Install Options 2")
 
-![Vim Setup Options Part 2](vim_setup_options2.png "Vim Setup Options Part 2")
-
-![Vim Setup Options Part 3](vim_setup_options3.png "Vim Setup Options Part 3")
+![Git Install Options 3](git_3.png "Git Install Options 3")
 
 ### Clone the repo
 
-Create a projects directory if it doesn't exist already. Then clone the repo normally with git:
-```
-mkdir $env:HOMEPATH\Projects
-cd $env:HOMEPATH\Projects
+Create a projects directory if it doesn't exist already. Then clone the repo normally with git in a command prompt:
+```powershell
+mkdir %HOMEPATH%\Projects
+cd %HOMEPATH%\Projects
 git clone git@github.com:aleksijohansson/host-setup.git
 ```
 
@@ -35,43 +55,24 @@ git clone git@github.com:aleksijohansson/host-setup.git
 
 ### Hyper
 
-We want to use Hyper for running Powershell and to do that as an administrator so that we can create symbolic links etc. For this we need to do two things. Run Hyper as and administrator and use our own config for Hyper to run Powershell instead of the default cmd.exe.
-
-To run Hyper as an administrator easily, find it from the start menu, right click and choose "Open file location". This opens the shortcuts folder in File Explorer. Right click the shortcut and select "Properties" and then select "Advanced" and make sure "Run as administrator" is checked.
-
-To link our Hyper configuration into place run newly elevated Hyper, start Powershell and create the link:
-```
-powershell
-New-Item -Path $env:HOMEPATH\.hyper.js -ItemType SymbolicLink -Value $env:HOMEPATH\Projects\host-setup\windows\.hyper.js
+To use Hyper with our configuration we need to link it into place. Run this in a command prompt:
+```powershell
+mklink %HOMEPATH%\.hyper.js %HOMEPATH%\Projects\host-setup\windows\.hyper.js
 ```
 
-### Powershell
+### <a name="sshonwindows"></a>SSH on Windows
 
-Some aliases are needed in Powershell to easily use git, vim and atom from Powershell. First allow running scripts (https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-6&viewFallbackFrom=powershell-Microsoft.PowerShell.Core) and then create the folder for Powershell profiles under Documents and symlink the `profile.ps1` to it. Continue in the Powershell in elevated Hyper we started in the previous section and run:
+Windows 10 comes with beta of OpenSSH so just for funzies let's try it out. Also setting up the keys is required for Git anyway. It can be enabled from optional features. See Settings > Apps and click “Manage optional features” under Apps & features (https://blogs.msdn.microsoft.com/powershell/2017/12/15/using-the-openssh-beta-in-windows-10-fall-creators-update-and-windows-server-1709). OpenSSH port for Windows only works with id_ed25519 keys. Create the keys from 1Password in command prompt:
 
-```
-Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
-mkdir $env:HOMEPATH\WindowsPowerShell
-New-Item -Path $env:HOMEPATH\Documents\WindowsPowerShell\profile.ps1 -ItemType SymbolicLink -Value $env:HOMEPATH\Projects\host-setup\windows\profile.ps1
-```
-
-### SSH
-
-Windows 10 comes with beta of OpenSSH. It can be enabled from optional features. See Settings > Apps and click “Manage optional features” under Apps & features (https://blogs.msdn.microsoft.com/powershell/2017/12/15/using-the-openssh-beta-in-windows-10-fall-creators-update-and-windows-server-1709). OpenSSH port for Windows only works with id_ed25519 keys. Create the keys from 1Password:
-
-```
-vim $env:HOMEPATH\.ssh\id_ed25519
-vim $env:HOMEPATH}\.ssh\id_ed25519.pub
-ssh-add $env:HOMEPATH\.ssh\id_ed25519
+```powershell
+code %HOMEPATH%\.ssh\id_ed25519
+code %HOMEPATH%\.ssh\id_ed25519.pub
+ssh-add %HOMEPATH%\.ssh\id_ed25519
 ```
 
-### Atom
+### Firefox
 
-There is some custom keymapping to use ctrl for tab switching instead of alt. Symlink that into place. This needs an elevated Hyper again.
-
-```
-New-Item -Path $env:HOMEPATH\.atom\keymap.cson -ItemType SymbolicLink -Value $env:HOMEPATH\Projects\host-setup\windows\keymap.cson
-```
+Make Firefox a bit cleaner by going to `about:config` and setting `browser.urlbar.oneOffSearches` to `false`.
 
 ## Tips
 
@@ -81,8 +82,3 @@ Here's some tips that came up:
 - Show file extensions of files in File Explorer:
 
 ![Windows Show File Extensions](windows_show_file_extensions.png "Windows Show File Extensions")
-
-## More to explore
-
-- https://git-scm.com/book/uz/v2/Appendix-A%3A-Git-in-Other-Environments-Git-in-Powershell
-- https://www.develves.net/blogs/asd/articles/using-git-with-powershell-on-windows-10/
