@@ -3,6 +3,7 @@ vagrant/*/.vagrant
 
 # IDE related.
 .idea
+.vscode
 
 # Any logs
 *.log
