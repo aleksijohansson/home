@@ -26,7 +26,7 @@ Manually download and install the basics:
   - See [Git](#git) section below for screenshots of installation options.
   - For setting up the authentication keys see [SSH on Windows](#sshonwindows) section below.
 - Lando https://github.com/lando/lando/releases
-  - Lando requires the two above and might try to install them. You can keep the versions you have.
+  - See [Lando](#lando) section below for screenshot of installation options.
 - Microsoft Visual Studio Code https://code.visualstudio.com
 - Hyper https://hyper.is
 - Comfort Clipboard Pro http://www.comfort-software.com/downloads.html
@@ -41,6 +41,10 @@ Manually download and install the basics:
 ![Git Install Options 2](git_2.png "Git Install Options 2")
 
 ![Git Install Options 3](git_3.png "Git Install Options 3")
+
+### <a name="lando"></a>Lando
+
+![Lando Install Options](lando.png "Lando Install Options")
 
 ### Clone the repo
 
