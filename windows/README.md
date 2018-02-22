@@ -33,6 +33,7 @@ Manually download and install the basics:
 - TickTick https://ticktick.com
 - Firefox https://www.mozilla.org/en-US/firefox
 - 7-Zip http://www.7-zip.org
+- PowerShell Core 6 https://github.com/PowerShell/PowerShell/releases
 
 ### <a name="git"></a>Git
 
