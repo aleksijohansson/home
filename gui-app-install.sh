@@ -98,6 +98,13 @@ apm install --packages-list $HOME/Projects/host-setup/apm_packages.txt
 # On Windows (on powershell) do:
 # apm install --packages-file $env:HOMEPATH\Projects\host-setup\apm_packages.txt
 
+# Cron
+# Change the background of the machine for work and play.
+# Manually setup this cron to macOS:
+# 57 22 * * 1-5 open -a /Applications/Set\ Desktop\ Picture.app /Library/Desktop\ Pictures/Lake.jpg
+# 0 18 * * 1-5 open -a /Applications/Set\ Desktop\ Picture.app /Library/Desktop\ Pictures/Yosemite\ 3.jpg
+# Also put the Set Desktop Picture.app from bin into /Applications.
+
 # Test of the arrays.
 printf "List of macOS apps to install: ${macos[*]}\n"
 printf "List of macOS gui apps to install: ${macos_casks[*]}\n"
