@@ -86,18 +86,6 @@ npm+=('hpm-cli')
 vagrant+=('vagrant-hostmanager')
 vagrant+=('vagrant-cachier')
 
-# Atom packages
-# When installing new packages do:
-# apm install [package]
-# apm list --installed --bare > $HOME/Projects/host-setup/apm_packages.txt
-# On Windows (with cmd, powershell output is broken):
-# apm install [package]
-# apm list --installed --bare > %HOMEPATH%\Projects\host-setup\apm_packages.txt
-# When setting up new system do:
-apm install --packages-list $HOME/Projects/host-setup/apm_packages.txt
-# On Windows (on powershell) do:
-# apm install --packages-file $env:HOMEPATH\Projects\host-setup\apm_packages.txt
-
 # Cron
 # Change the background of the machine for work and play.
 # Manually setup this cron to macOS:
