@@ -28,6 +28,7 @@ Manually download and install the basics:
 - Lando https://github.com/lando/lando/releases
   - See [Lando](#lando) section below for screenshot of installation options.
 - Microsoft Visual Studio Code https://code.visualstudio.com
+  - See [Visual Studio Code](#code) section below for finalising the setup.
 - Hyper https://hyper.is
 - Comfort Clipboard Pro http://www.comfort-software.com/downloads.html
 - TickTick https://ticktick.com
@@ -63,6 +64,16 @@ git clone git@github.com:aleksijohansson/host-setup.git
 To use Hyper with our configuration we need to link it into place. Run this in a command prompt:
 ```powershell
 mklink %HOMEPATH%\.hyper.js %HOMEPATH%\Projects\host-setup\windows\.hyper.js
+```
+
+### <a name="code"></a>Visual Studio Code
+
+TODO: Set the real paths below and see if we can use the same keybindings for Windows.
+
+To use Visual Studio Code with our configuration we need to link it into place. Run this in a command prompt:
+```powershell
+mklink %HOMEPATH%\keybindings.json %HOMEPATH%\Projects\host-setup\dotfiles\Library\Application Support\Code\User\keybindings.json
+mklink %HOMEPATH%\settings.json %HOMEPATH%\Projects\host-setup\dotfiles\Library\Application Support\Code\User\settings.json
 ```
 
 ### <a name="sshonwindows"></a>SSH on Windows
