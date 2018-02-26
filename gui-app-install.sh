@@ -101,7 +101,7 @@ apm install --packages-list $HOME/Projects/host-setup/apm_packages.txt
 # Cron
 # Change the background of the machine for work and play.
 # Manually setup this cron to macOS:
-# 57 22 * * 1-5 open -a /Applications/Set\ Desktop\ Picture.app /Library/Desktop\ Pictures/Lake.jpg
+# 0 6 * * 1-5 open -a /Applications/Set\ Desktop\ Picture.app /Library/Desktop\ Pictures/Lake.jpg
 # 0 18 * * 1-5 open -a /Applications/Set\ Desktop\ Picture.app /Library/Desktop\ Pictures/Yosemite\ 3.jpg
 # Also put the Set Desktop Picture.app from bin into /Applications.
 
