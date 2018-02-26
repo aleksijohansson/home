@@ -90,6 +90,8 @@ then
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   fi
   # Install the required utilities with brew.
+  brew update
+  brew upgrade -y
   brew install -y ${INSTALL[*]}
 
 # Utility installation on Linux. Includes system update where needed.
