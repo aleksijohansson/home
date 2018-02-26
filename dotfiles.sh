@@ -18,7 +18,7 @@ DIR=`cd $( dirname "${BASH_SOURCE[0]}" ) && pwd`
 
 # Dotfile handler function.
 link_dotfile() {
-  FILENAME=`realpath --relative-to="$DIR/$DOTFILES_DIR" $1`
+  FILENAME=`realpath --relative-to="$DIR/$DOTFILES_DIR" "$1"`
 
   # Only remove if excluded.
   EXCLUDE=false
@@ -26,7 +26,7 @@ link_dotfile() {
   for EXC in ${EXCLUDES[@]}
   do
     # Check if filename starts with the excluded file or folder.
-    if [[ $FILENAME == $EXC* ]]
+    if [[ "$FILENAME" == $EXC* ]]
     then
       printf "Dotfile $FILENAME excluded because of operating system $OS or because no 'gui' was given as argument.\n"
       EXCLUDE=true
@@ -37,40 +37,40 @@ link_dotfile() {
   DOTFILE="$HOME/$FILENAME"
 
   # Backup any existing dotfiles and only if they are files, not symlinks.
-  if [ -f $DOTFILE ] && [ ! -L $DOTFILE ]
+  if [ -f "$DOTFILE" ] && [ ! -L "$DOTFILE" ]
   then
     printf "Existing dotfile ($DOTFILE) found, backing up... "
-    mv $DOTFILE ${DOTFILE}_bak
+    mv "$DOTFILE" "${DOTFILE}_bak"
     printf "done.\n"
   fi
   # Symlink the dotfile into place.
-  if [ -f $1 ] && [ $EXCLUDE != true ]
+  if [ -f "$1" ] && [ $EXCLUDE != true ]
   then
     printf "Linking dotfile:\n"
-    ln -svf "$1" $DOTFILE
-  elif [ -d $1 ] && [ $EXCLUDE != true ]
+    ln -svf "$1" "$DOTFILE"
+  elif [ -d "$1" ] && [ $EXCLUDE != true ]
   # If we have a folder instead make sure it exists.
   then
-    mkdir -pv $DOTFILE
-  elif [ -L $DOTFILE ] && [ $EXCLUDE == true ]
+    mkdir -pv "$DOTFILE"
+  elif [ -L "$DOTFILE" ] && [ $EXCLUDE == true ]
   then
     printf "Removing excluded dotfile $DOTFILE.\n"
-    rm $DOTFILE
+    rm "$DOTFILE"
   fi
 }
 
 # Function to iterate over files and go all out inception for folders.
 iterate_dotfiles() {
-  for ITEM in $1/*
+  for ITEM in "$1"/*
   do
-    if [ -f $ITEM ]
+    if [ -f "$ITEM" ]
     # Link files.
     then
-      link_dotfile $ITEM
-    elif [ -d $ITEM ]
+      link_dotfile "$ITEM"
+    elif [ -d "$ITEM" ]
     # Process folders further.
     then
-      link_dotfile $ITEM # This will make sure the folder exists.
+      link_dotfile "$ITEM" # This will make sure the folder exists.
       iterate_dotfiles "$ITEM"
     fi
   done
