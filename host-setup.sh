@@ -40,7 +40,9 @@ if [ "$OS" == 'Darwin' ]
 # macOS utility requirements.
 then
   # These are needed by the setup.
+  # TODO: This installs multiple executables which of none are called coreutils so it always tries to install this.
   UTILITIES+=('coreutils')
+  # TODO: This installs an executable called node so it always tries to install this.
   UTILITIES+=('nodejs') # Include npm.
   # These are just for convenience.
   UTILITIES+=('screen')
