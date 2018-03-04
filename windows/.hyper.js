@@ -122,9 +122,7 @@ module.exports = {
   //   `hyperpower`
   //   `@company/project`
   //   `project#1.0.1`
-  plugins: ["hyperterm-tabs"],
-  // TODO: Check if hyper-tabs-enhanced works with 2.0 when it's released.
-  // plugins: ["hyperterm-tabs", "hyper-tabs-enhanced"],
+  plugins: ["hyperterm-tabs", "hyperterm-tab-icons"],
 
   // in development, you can create a directory under
   // `~/.hyper_plugins/local/` and include it here
