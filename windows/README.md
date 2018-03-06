@@ -35,6 +35,8 @@ Manually download and install the basics:
 - Firefox https://www.mozilla.org/en-US/firefox
 - 7-Zip http://www.7-zip.org
 - PowerShell Core 6 https://github.com/PowerShell/PowerShell/releases
+- Wox https://github.com/Wox-launcher/Wox
+  - Installation includes Everything and Python 3.6 for Windows
 
 ### <a name="git"></a>Git
 
