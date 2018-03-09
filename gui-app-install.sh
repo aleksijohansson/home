@@ -46,6 +46,9 @@ macos_casks+=('zoomus')
 
 # Some apps are better to install from pip on macOS. Make sure pyenv and proper Python version is installed first.
 macos_pip+=('ansible')
+macos_pip+=('pipenv')
+macos_pip+=('pipdeptree')
+macos_pip+=('pip-autoremove')
 
 # Apps to install Mac App Store manually.
 # - Amphetamine
