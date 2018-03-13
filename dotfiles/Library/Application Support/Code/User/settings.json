@@ -5,5 +5,6 @@
     "editor.minimap.enabled": false,
     "window.openFoldersInNewWindow": "on",
     "window.openFilesInNewWindow": "on",
-    "git.enableSmartCommit": true
+    "git.enableSmartCommit": true,
+    "window.zoomLevel": 1 // Comes down to about 14px font size everywhere.
 }
