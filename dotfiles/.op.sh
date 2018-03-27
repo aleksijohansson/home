@@ -15,7 +15,11 @@ if [ -z ${VAGRANT_INSTALLER_ENV+x} ]; then
   fi
   # Get the password with the name of the current project folder.
   PROJECT=`basename $PWD`
+  if [ "$PROJECT" == 'ansible' ]; then
+    PROJECT=`cd .. && basename $PWD`
+  fi
   op get item "$PROJECT" | jq '.details.notesPlain' --raw-output
+
 else
   >&2 echo "
 Vagrant is running ansible-playbook so we will get the vault
