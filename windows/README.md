@@ -38,6 +38,10 @@ Manually download and install the basics:
 - Wox https://github.com/Wox-launcher/Wox
   - Installation includes Everything and Python 3.6 for Windows
 
+Uninstall unneeded stuff:
+- OneDrive
+  - This can be tricky so uninstall via the official method and clean up the remnants https://techjourney.net/disable-or-uninstall-onedrive-completely-in-windows-10/
+
 ### <a name="git"></a>Git
 
 ![Git Install Options 1](git_1.png "Git Install Options 1")
