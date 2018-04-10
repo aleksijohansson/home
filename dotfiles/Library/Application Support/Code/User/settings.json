@@ -1,6 +1,6 @@
 {
     "workbench.statusBar.feedback.visible": false,
-    "workbench.colorTheme": "Monokai",
+    "workbench.colorTheme": "Monokai Dimmed",
     "git.autofetch": true,
     "editor.minimap.enabled": false,
     "window.openFoldersInNewWindow": "on",
