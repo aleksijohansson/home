@@ -10,5 +10,6 @@
     "terminal.integrated.fontSize": 14,
     "yaml.format.enable": true,
     "files.trimTrailingWhitespace": true,
-    "explorer.openEditors.visible": 0
+    "explorer.openEditors.visible": 0,
+    "workbench.startupEditor": "newUntitledFile"
 }
