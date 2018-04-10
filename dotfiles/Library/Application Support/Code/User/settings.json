@@ -9,5 +9,6 @@
     "editor.fontSize": 14,
     "terminal.integrated.fontSize": 14,
     "yaml.format.enable": true,
-    "files.trimTrailingWhitespace": true
+    "files.trimTrailingWhitespace": true,
+    "explorer.openEditors.visible": 0
 }
