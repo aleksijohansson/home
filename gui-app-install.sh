@@ -54,18 +54,15 @@ macos_pip+=('autopep8')
 macos_pip+=('pipenv')
 macos_pip+=('pipdeptree')
 macos_pip+=('pip-autoremove')
+macos_pip+=('pip-review')
 macos_pip+=('pylint')
 
 # Apps to install Mac App Store manually.
 # - Amphetamine
 # - Gifox
 # - iMovie
-# - Keynote
 # - Magnet
-# - Numbers
-# - Pages
 # - Paste (because it was bought there)
-# - TickTick
 # - Xcode
 
 # Apps to install manually
