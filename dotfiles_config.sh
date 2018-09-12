@@ -17,7 +17,7 @@ then
 fi
 if [ "$1" != 'gui' ]
 then
-  EXCLUDES+=('.hyper.js') # Hyper is GUI only, exclude the config.
+  EXCLUDES+=('') # Some apps are GUI only, exclude their config.
 fi
 
 # Local only dotfiles that will be generated on demand and content requested
