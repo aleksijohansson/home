@@ -65,7 +65,7 @@ macos_pip+=('pylint')
 # - Amphetamine
 # - Gifox
 # - iMovie
-# - Magnet
+# - Moom
 # - Paste (because it was bought there)
 # - Xcode
 
