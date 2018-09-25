@@ -90,7 +90,6 @@ rbenv+=('2.4.1')
 
 # List of global npm packages to install with -g flag.
 npm+=('gulp-cli')
-npm+=('hpm-cli')
 
 # List of Vagrant plugins to install.
 vagrant+=('vagrant-hostmanager')
